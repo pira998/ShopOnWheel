@@ -23,6 +23,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import {COLORS,icons,constants,SIZES,FONTS,images} from '../../constants'
 import dummyData from '../../constants/dummyData';
+import { Dimensions } from 'react-native';
 
 import { FormInput,AuthTextButton } from '../../components';
 
@@ -43,7 +44,8 @@ const GET_ALL_PRODUCTS = gql`
 }
 
 `
-
+const window = Dimensions.get('window');
+const screen = Dimensions.get('screen');
 const Cart = ({drawerAnimationStyle,navigation,route}) => {
   //  const [products,setProducts]= React.useState({})
   //  const {loading,error,data} = useQuery(GET_ALL_PRODUCTS,{
@@ -52,6 +54,18 @@ const Cart = ({drawerAnimationStyle,navigation,route}) => {
          
   //       }
   //   })
+  const [dimensions, setDimensions] = useState({ window, screen });
+
+    const onChange = ({ window, screen }) => {
+        setDimensions({ window, screen });
+    };
+
+    React.useEffect(() => {
+        Dimensions.addEventListener('change', onChange);
+        return () => {
+        Dimensions.removeEventListener('change', onChange);
+        };
+    });
  
 //   const [items, setItems] = useState( [
 //   {      
@@ -86,11 +100,17 @@ const Cart = ({drawerAnimationStyle,navigation,route}) => {
 //   },
     
 // ]);
-const [items,setItems] = React.useState(route.params.orderItems)
+    const [items,setItems] = React.useState(route.params.orderItems)
 
-  function isEnabledSignUp(){
+    function isEnabledSignUp(){
         return values.email != "" && values.password != "" && typeof errors.email == 'undefined'
     }
+    function sumOrder() {
+        let total = items.reduce((a, b) => a + (b.total || 0), 0)
+
+        return total.toFixed(2)
+    }
+    const totalPrice = sumOrder()
 
     return (
         <Animated.View
@@ -174,7 +194,68 @@ const [items,setItems] = React.useState(route.params.orderItems)
                   )}
                 />
               </View>
-              <View style={{borderBottomColor:'gray',borderWidth:1}} />
+         
+  
+             
+            <View style={styles.totalCard} >
+                 <View style={[styles.subTotal]}>
+                        <Text style={[styles.subTotalText]} >
+                            Sub Total
+                        </Text>
+                        <Text style={[styles.subTotalText]}>
+                            {sumOrder()}
+                        </Text>
+
+                    </View>
+                 <View style={[styles.deliveryCharge]}>
+                        <Text style={[styles.deliveryChargeText]} >
+                            Delivery Charge
+                        </Text>
+                        <Text style={[styles.deliveryChargeText]}>
+                            0.00
+                        </Text>
+
+                    </View>
+                   <View style={[styles.discount]}>
+                        <Text style={[styles.discountText]} >
+                            Discount
+                        </Text>
+                        <Text style={[styles.discountText]}>
+                            0.00
+                        </Text>
+
+                    </View>
+                       <View style={[styles.total]}>
+                        <Text style={[styles.totalText]} >
+                            Total
+                        </Text>
+                        <Text style={[styles.totalText]}>
+                            {sumOrder()}
+                        </Text>
+
+                    </View>
+            <AuthTextButton
+                label="Checkout"
+              
+                buttonContainerStyle={{
+                    height:55,
+                    alignItems:"center",
+                    marginTop:SIZES.padding/2,
+                    borderRadius:SIZES.radius,
+                    backgroundColor: COLORS.primary
+                }}
+               onPress={(e)=>{navigation.navigate('AddressConfirm',{
+                   totalPrice
+               })}}
+
+            >
+
+            </AuthTextButton>
+            </View>
+
+
+
+             
 
 
 
@@ -226,10 +307,54 @@ const styles= StyleSheet.create({
       fontFamily:'Poppins-SemiBold'
     },
     flatList: {
-  height: 250,
+        height: 400,
 
-  flexGrow: 0
-}
+        flexGrow: 0
+    },
+    total:{
+        flexDirection:'row',
+        justifyContent:"space-between"
+    },
+    totalText:{
+        fontFamily:"Poppins-SemiBold",
+        fontSize:20,
+    },
+    sumText:{
+        fontFamily:"Poppins-SemiBold",
+        fontSize:15,
+    },
+    subTotal:{
+        flexDirection:'row',
+        justifyContent:"space-between"
+    },
+    subTotalText:{
+        fontFamily:"Poppins-SemiBold",
+        fontSize:14,
+    },
+    deliveryCharge:{
+        flexDirection:'row',
+        justifyContent:"space-between"
+    },
+    deliveryChargeText:{
+        fontFamily:"Poppins-SemiBold",
+        fontSize:14,
+    },
+
+    discount:{
+        flexDirection:'row',
+        justifyContent:"space-between"
+    },
+    discountText:{
+        fontFamily:"Poppins-SemiBold",
+        fontSize:14,
+    },
+
+    totalCard:{
+        height:206,
+        backgroundColor:COLORS.transparentPrimary,
+        borderRadius:24,
+        padding:16
+    }
     
 
 

@@ -27,6 +27,7 @@ const wallet = require("../assets/icons/wallet.png")
 const help = require("../assets/icons/help.png")
 const back = require('../assets/icons/back.png')
 const notify = require('../assets/icons/nofify.png')
+const pinlocation = require("../assets/icons/pinlocation.png")
 
 
 export default {
@@ -58,5 +59,6 @@ export default {
     wallet,
     help,
     back,
-    notify
+    notify,
+    pinlocation
 }

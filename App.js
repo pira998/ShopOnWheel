@@ -79,7 +79,7 @@ const App = () => {
   // Handle user state changes
     function onAuthStateChanged(user) {
         setUser(user);
-        console.log("sdfasdfasdfasdfasdfa"+JSON.stringify(user))
+       
         if (initializing) setInitializing(false);
             setLoading(false);
         } 

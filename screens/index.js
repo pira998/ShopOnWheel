@@ -32,8 +32,12 @@ import CustomerSignUpSuccess from './CustomerInitial/SignUpSuccess'
 import CustomerProfile from './CustomerProfile/Profile'
 import Restaurant from "./Restaurant/Restaurant";
 import OrderDelivery from "./OrderDelivery/OrderDelivery";
+import Checkout from './Checkout/Checkout'
+import AddressConfirm from "./Checkout/AddressConfirm";
+import OrderSuccess from "./Checkout/OrderSuccess";
 
 
+// import Cart from './Cart/Cart'
 
 export {
    
@@ -55,7 +59,11 @@ export {
     CustomerSignUpSuccess,
     CustomerProfile,
     Restaurant,
-    OrderDelivery
+    OrderDelivery,
+    // Cart,
+    Checkout,
+    AddressConfirm,
+    OrderSuccess
  
 
 }

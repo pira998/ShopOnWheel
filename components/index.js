@@ -9,7 +9,8 @@ import FormInput from './FormInput'
 import CustomSwitch from './CustomSwitch'
 import AuthTextButton from './AuthTextButton'
 import AuthTextIconButton from './AuthTextIconButton'
-
+import SwipeButton from './SwipeButton'
+import Rating from './Rating';
 export {
     Header,
     HorizontalFoodCard,
@@ -22,5 +23,7 @@ export {
     AuthTextIconButton,
     FormInput,
     CustomSwitch,
+    SwipeButton,
+    Rating
 
 }

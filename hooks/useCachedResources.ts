@@ -25,6 +25,8 @@ export default function useCachedResources() {
         "Poppins-Regular": require('../assets/fonts/Poppins-Regular.ttf'),
         "UberMoveRegular" : require('../assets/fonts/UberMoveRegular.ttf'),
         "UberMoveMedium" : require('../assets/fonts/UberMoveMedium.ttf'),
+        "RobotoMono_400Regular":require('../assets/fonts/RobotoMono-Regular.ttf'),
+        "RobotoMono_700Bold":require('../assets/fonts/RobotoMono-Bold.ttf')
    
         });
       } catch (e) {

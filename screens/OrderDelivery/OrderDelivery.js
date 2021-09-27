@@ -8,7 +8,7 @@ import {
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import MapViewDirections from "react-native-maps-directions";
 
-import { COLORS, FONTS, icons, SIZES, GOOGLE_API_KEY } from "../../constants"
+import { COLORS, FONTS, icons, SIZES, GOOGLE_API_KEY ,images} from "../../constants"
 
 const OrderDelivery = ({ route, navigation }) => {
 
@@ -25,7 +25,37 @@ const OrderDelivery = ({ route, navigation }) => {
     const [angle, setAngle] = React.useState(0)
 
     React.useEffect(() => {
-        let { restaurant, currentLocation } = route.params;
+        
+
+        const affordable = 1
+        const fairPrice = 2
+        const expensive = 3
+        const currentLocation = {
+        streetName: "Kuching",
+        gps: {
+            latitude: 1.5496614931250685,
+            longitude: 110.36381866919922
+        }
+        
+        }
+        const restaurant = {
+             id: 1,
+            name: "Burger King",
+            rating: 4.8,
+            categories: [5, 7],
+            priceRating: affordable,
+            photo: require("../../assets/dummyData/hamburger.png"),
+            duration: "30 - 45 min",
+            location: {
+                latitude: 1.5347282806345879,
+                longitude: 110.35632207358996,
+            },
+            courier: {
+                avatar: images.avatar_1,
+                name: "Amy"
+            },
+        }
+        // let { restaurant, currentLocation } = route.params;
 
         let fromLoc = currentLocation.gps
         let toLoc = restaurant.location

@@ -11,7 +11,7 @@ import {
 
 import MainLayout from '../screens/MainLayout';
 import MapRender from '../screens/MapRender/MapRender'
-import { Restaurant } from "../screens";
+import {  AddressConfirm, Checkout, OrderDelivery, OrderSuccess, Restaurant } from "../screens";
 
 import {
     COLORS,FONTS,SIZES,constants,icons
@@ -344,6 +344,27 @@ const CustomDrawer=({selectedTab,setSelectedTab})=>{
                     drawerAnimationStyle={animatedStyle}
                     />}
                 </Drawer.Screen>
+                  <Drawer.Screen name="Checkout">
+                    {props=><Checkout {...props}
+                    drawerAnimationStyle={animatedStyle}
+                    />}
+                </Drawer.Screen>
+                <Drawer.Screen name="AddressConfirm">
+                    {props=><AddressConfirm {...props}
+                    drawerAnimationStyle={animatedStyle}
+                    />}
+                </Drawer.Screen>
+                     <Drawer.Screen name="OrderSuccess">
+                    {props=><OrderSuccess {...props}
+                    drawerAnimationStyle={animatedStyle}
+                    />}
+                </Drawer.Screen>
+                 <Drawer.Screen name="OrderDelivery">
+                    {props=><OrderDelivery {...props}
+                    drawerAnimationStyle={animatedStyle}
+                    />}
+                </Drawer.Screen>
+
 
 
             </Drawer.Navigator>

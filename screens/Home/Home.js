@@ -536,9 +536,9 @@ function renderMenuTypes(){
                         marginRight:index=popular.length-1 ? SIZES.padding:0
                     }}
                     item={item}
-                    onPress={()=>navigation.navigate('Restaurant',{
+                    onPress={(e)=> { e.preventDefault(); navigation.navigate('Restaurant',{
                         item,index
-                    })}
+                    })}}
                   />
                 )}
 

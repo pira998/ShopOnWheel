@@ -11,12 +11,16 @@ import * as firebase from 'firebase'
 import { FormInput,CustomSwitch,AuthTextButton ,AuthTextIconButton } from '../../components';
 import { connect } from 'react-redux';
 import {COLORS,SIZES,FONTS,icons} from '../../constants'
-
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Layout from './Layout'
 
+
+
+
 const UserBio = ({userType,navigation}) => {
+    
+    
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
     const LoginSchema = Yup.object().shape({
     lastname: Yup.string()
