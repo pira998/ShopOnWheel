@@ -66,14 +66,6 @@ const store= createStore(
 LogBox.ignoreAllLogs();
 const App = () => {
     const isLoadingComplete = useCachedResources();
-    // const [loaded] = useFonts({
-    //     "PoppinsBlack": require('./assets/fonts/Poppins-Black.ttf'),
-    //     "PoppinsBold": require('./assets/fonts/Poppins-Bold.ttf'),
-    //     "PoppinsBlackItalic": require('./assets/fonts/Poppins-BlackItalic.ttf'),
-    //     "PoppinsSemiBold": require('./assets/fonts/Poppins-SemiBold.ttf'),
-    //     "PoppinsRegular": require('./assets/fonts/Poppins-Regular.ttf'),
-   
-    // });
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [initializing, setInitializing] = useState(true);

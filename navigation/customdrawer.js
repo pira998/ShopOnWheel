@@ -306,7 +306,7 @@ const CustomDrawer=({selectedTab,setSelectedTab})=>{
                  backgroundColor:'transparent'
              }}
 
-             initialRouteName="OrderDelivery"
+             initialRouteName="Home"
              drawerContent={props =>{
                  setTimeout(()=>{
                     setProgress(props.progress)
