@@ -42,7 +42,7 @@ const UserBio = ({userType,navigation}) => {
     setFieldValue
   } = useFormik({
     validationSchema: LoginSchema,
-    initialValues: { username: '', mobile: '', lastname: "" },
+    initialValues: { username: '', mobile: '', lastname: "",address: "" },
     onSubmit: async (values) => {
         navigation.navigate('CustomerLanguage')
     }})
@@ -130,6 +130,30 @@ const UserBio = ({userType,navigation}) => {
                                 height:20,
                                 width:20,
                                 tintColor:values.mobile==""?COLORS.gray : (values.mobile!=""&& typeof errors.mobile == 'undefined')? COLORS.green: COLORS.red
+                            }}
+                            />
+                    </View>
+                }
+            
+            />
+             <FormInput 
+                label="Address"
+                keyboardType = "numeric"
+                autoCompleteType = "tel"
+                onChangeText = {handleChange("address")}
+                errorMsg= {errors.address}
+                appendComponent={
+                    <View
+                        style={{
+                            justifyContent:'center'
+                        }}
+                    >
+                        <Image 
+                            source={values.address==""||(values.address!=""&& typeof errors.address == 'undefined')? icons.correct:icons.cross} 
+                            style = {{
+                                height:20,
+                                width:20,
+                                tintColor:values.address==""?COLORS.gray : (values.address!=""&& typeof errors.address == 'undefined')? COLORS.green: COLORS.red
                             }}
                             />
                     </View>

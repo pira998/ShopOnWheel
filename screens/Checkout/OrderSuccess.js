@@ -57,7 +57,7 @@ const OrderSuccess = ({userType,navigation}) => {
                     borderRadius:SIZES.radius,
                     backgroundColor: COLORS.primary
                 }}
-               onPress={()=>navigation.navigate('Home')}
+               onPress={()=>navigation.navigate('OrderDelivery')}
 
             >
 

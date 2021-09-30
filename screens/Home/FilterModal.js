@@ -4,7 +4,7 @@ import {Animated,ScrollView,TouchableWithoutFeedback,Modal ,View,TouchableOpacit
 
 import { COLORS,FONTS,SIZES,icons,constants } from "../../constants";
 
-import { IconButton,TwoPointSlider ,TextButton,TextIconButton} from "../../components";
+import { IconButton,TextButton,TextIconButton} from "../../components";
 
 const Section =({containerStyle,title,children})=>{
     return(
@@ -54,14 +54,14 @@ const FilterModal =({isVisible,onClose})=>{
             <Section
             title="Distance">
                 <View style={{alignItems:'center'}}>
-                    <TwoPointSlider
+                    {/* <TwoPointSlider
                     values={[3,10]}
                     min={1}
                     max={20}
                     postfix='km'
                     onValuesChange={(values)=>console.log(values)}>
 
-                    </TwoPointSlider>
+                    </TwoPointSlider> */}
                 </View>
             </Section>
         )
@@ -118,14 +118,14 @@ const FilterModal =({isVisible,onClose})=>{
                 style={{
                     alignItems:'center'
                 }}>
-                    <TwoPointSlider 
+                    {/* <TwoPointSlider 
                     values={[10,50]}
                     min={1}
                     max={100}
                     prefix="$"
                     postfix=""
                     onValuesChange={(values)=>console.log(values)}
-                    />
+                    /> */}
 
                 </View>
             </Section>

@@ -225,6 +225,10 @@ const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
                     <CustomDrawerItem
                         lable="Track Your Order Item"
                         icon={icons.location}
+                         onPress={()=>{
+                           
+                            navigation.navigate("OrderDelivery")
+                        }}
                     />
                      <CustomDrawerItem
                         lable="Cupons"
@@ -302,7 +306,7 @@ const CustomDrawer=({selectedTab,setSelectedTab})=>{
                  backgroundColor:'transparent'
              }}
 
-             initialRouteName="Home"
+             initialRouteName="OrderDelivery"
              drawerContent={props =>{
                  setTimeout(()=>{
                     setProgress(props.progress)

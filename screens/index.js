@@ -35,7 +35,7 @@ import OrderDelivery from "./OrderDelivery/OrderDelivery";
 import Checkout from './Checkout/Checkout'
 import AddressConfirm from "./Checkout/AddressConfirm";
 import OrderSuccess from "./Checkout/OrderSuccess";
-
+// import VendorsMap from './VendorsMap/VendorsMap'
 
 // import Cart from './Cart/Cart'
 
@@ -63,7 +63,8 @@ export {
     // Cart,
     Checkout,
     AddressConfirm,
-    OrderSuccess
+    OrderSuccess,
+    // VendorsMap
  
 
 }

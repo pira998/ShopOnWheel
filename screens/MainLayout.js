@@ -295,12 +295,12 @@ const MainLayout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}
           
 
             {/*Footer*/}
-
+{/* 
             <View
             style={{
                 height:100,
                 justifyContent:'flex-end'
-            }}>
+            }}> */}
                {/*shadow
                <LinearGradient 
                     start ={{x:0,y:0}}
@@ -321,7 +321,7 @@ const MainLayout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}
                />
                 */}
                {/*tabs*/}
-
+{/* 
                <View
                style={{
                    flex:1,
@@ -373,7 +373,7 @@ const MainLayout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}
                </View>
 
 
-            </View>
+            </View> */}
 
         </Animated.View>
     )

@@ -53,7 +53,7 @@ export async function signIn(email, password) {
       .auth()
       .signInWithEmailAndPassword(email, password);
   } catch (err) {
-    // Alert.alert("There is something wrong!", err.message);
+    Alert.alert("There is something wrong!", err.message);
   }
 }
 

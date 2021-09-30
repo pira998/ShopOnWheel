@@ -19,14 +19,14 @@ export default function useCachedResources() {
           ...MaterialIcons.font,
           ...Ionicons.font,
             "Poppins-Black": require('../assets/fonts/Poppins-Black.ttf'),
-        "Poppins-Bold": require('../assets/fonts/Poppins-Bold.ttf'),
-        "Poppins-BlackItalic": require('../assets/fonts/Poppins-BlackItalic.ttf'),
-        "Poppins-SemiBold": require('../assets/fonts/Poppins-SemiBold.ttf'),
-        "Poppins-Regular": require('../assets/fonts/Poppins-Regular.ttf'),
-        "UberMoveRegular" : require('../assets/fonts/UberMoveRegular.ttf'),
-        "UberMoveMedium" : require('../assets/fonts/UberMoveMedium.ttf'),
-        "RobotoMono_400Regular":require('../assets/fonts/RobotoMono-Regular.ttf'),
-        "RobotoMono_700Bold":require('../assets/fonts/RobotoMono-Bold.ttf')
+            "Poppins-Bold": require('../assets/fonts/Poppins-Bold.ttf'),
+            "Poppins-BlackItalic": require('../assets/fonts/Poppins-BlackItalic.ttf'),
+            "Poppins-SemiBold": require('../assets/fonts/Poppins-SemiBold.ttf'),
+            "Poppins-Regular": require('../assets/fonts/Poppins-Regular.ttf'),
+            "UberMoveRegular" : require('../assets/fonts/UberMoveRegular.ttf'),
+            "UberMoveMedium" : require('../assets/fonts/UberMoveMedium.ttf'),
+            "RobotoMono_400Regular":require('../assets/fonts/RobotoMono-Regular.ttf'),
+            "RobotoMono_700Bold":require('../assets/fonts/RobotoMono-Bold.ttf')
    
         });
       } catch (e) {

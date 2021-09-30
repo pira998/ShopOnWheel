@@ -28,7 +28,7 @@ const help = require("../assets/icons/help.png")
 const back = require('../assets/icons/back.png')
 const notify = require('../assets/icons/nofify.png')
 const pinlocation = require("../assets/icons/pinlocation.png")
-
+const van = require('../assets/icons/van.png')
 
 export default {
     coupon,
@@ -60,5 +60,6 @@ export default {
     help,
     back,
     notify,
-    pinlocation
+    pinlocation,
+    van
 }

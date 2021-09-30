@@ -4,7 +4,7 @@ import {Animated,ScrollView,StyleSheet,TouchableWithoutFeedback,Modal ,View,Touc
 
 import { COLORS,FONTS,SIZES,icons,constants } from "../constants";
 
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import MultiSlider from 'react-native-multi-slider';
 
 
 const TwoPointSlider =({values,min,max,prefix,postfix,onValuesChange})=>{

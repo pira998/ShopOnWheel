@@ -8,25 +8,9 @@ import {
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import MapViewDirections from "react-native-maps-directions";
 
-import { COLORS, FONTS, icons, SIZES, GOOGLE_API_KEY ,images} from "../../constants"
+import { COLORS, FONTS, icons, SIZES, GOOGLE_API_KEY,images } from "../../constants"
 
 const OrderDelivery = ({ route, navigation }) => {
-
-    const mapView = React.useRef()
-
-    const [restaurant, setRestaurant] = React.useState(null)
-    const [streetName, setStreetName] = React.useState("")
-    const [fromLocation, setFromLocation] = React.useState(null)
-    const [toLocation, setToLocation] = React.useState(null)
-    const [region, setRegion] = React.useState(null)
-
-    const [duration, setDuration] = React.useState(0)
-    const [isReady, setIsReady] = React.useState(false)
-    const [angle, setAngle] = React.useState(0)
-
-    React.useEffect(() => {
-        
-
         const affordable = 1
         const fairPrice = 2
         const expensive = 3
@@ -55,6 +39,19 @@ const OrderDelivery = ({ route, navigation }) => {
                 name: "Amy"
             },
         }
+    const mapView = React.useRef()
+
+    // const [restaurant, setRestaurant] = React.useState(null)
+    const [streetName, setStreetName] = React.useState("")
+    const [fromLocation, setFromLocation] = React.useState(null)
+    const [toLocation, setToLocation] = React.useState(null)
+    const [region, setRegion] = React.useState(null)
+
+    const [duration, setDuration] = React.useState(0)
+    const [isReady, setIsReady] = React.useState(false)
+    const [angle, setAngle] = React.useState(0)
+
+    React.useEffect(() => {
         // let { restaurant, currentLocation } = route.params;
 
         let fromLoc = currentLocation.gps
@@ -68,7 +65,7 @@ const OrderDelivery = ({ route, navigation }) => {
             longitudeDelta: Math.abs(fromLoc.longitude - toLoc.longitude) * 2
         }
 
-        setRestaurant(restaurant)
+        // setRestaurant(restaurant)
         setStreetName(street)
         setFromLocation(fromLoc)
         setToLocation(toLoc)
@@ -154,13 +151,14 @@ const OrderDelivery = ({ route, navigation }) => {
                 coordinate={fromLocation}
                 anchor={{ x: 0.5, y: 0.5 }}
                 flat={true}
-                rotation={angle}
+                // rotation={angle}
             >
                 <Image
-                    source={icons.car}
+                    source={icons.van}
                     style={{
                         width: 40,
-                        height: 40
+                        height: 40,
+                        borderColor:COLORS.primary
                     }}
                 />
             </Marker>
@@ -177,7 +175,7 @@ const OrderDelivery = ({ route, navigation }) => {
                     <MapViewDirections
                         origin={fromLocation}
                         destination={toLocation}
-                        apikey={GOOGLE_API_KEY}
+                        apikey="AIzaSyBJQaGPESpG-vlcnpajwa3IY0J6MNUIdYg"
                         strokeWidth={5}
                         strokeColor={COLORS.primary}
                         optimizeWaypoints={true}
@@ -275,9 +273,9 @@ const OrderDelivery = ({ route, navigation }) => {
             >
                 <View
                     style={{
-                        width: SIZES.width * 0.9,
-                        paddingVertical: SIZES.padding * 3,
-                        paddingHorizontal: SIZES.padding * 2,
+                        width: SIZES.width * 0.8,
+                        paddingVertical: SIZES.padding ,
+                        paddingHorizontal: SIZES.padding ,
                         borderRadius: SIZES.radius,
                         backgroundColor: COLORS.white
                     }}
@@ -321,17 +319,18 @@ const OrderDelivery = ({ route, navigation }) => {
                     >
                         <TouchableOpacity
                             style={{
-                                flex: 1,
+                                // flex: 1,
                                 height: 50,
-                                marginRight: 10,
+                                padding:6,
+                                // marginRight: 10,
                                 backgroundColor: COLORS.primary,
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 borderRadius: 10
                             }}
-                            onPress={() => navigation.navigate("Home")}
+                            onPress={() => navigation.navigate("MainLayout")}
                         >
-                            <Text style={{ ...FONTS.h4, color: COLORS.white }}>Call</Text>
+                            <Text style={{ ...FONTS.h4, color: COLORS.white }}>Try another Order</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
@@ -359,11 +358,11 @@ const OrderDelivery = ({ route, navigation }) => {
             <View
                 style={{
                     position: 'absolute',
-                    bottom: SIZES.height * 0.35,
+                    bottom: SIZES.height/13,
                     right: SIZES.padding * 2,
                     width: 60,
                     height: 130,
-                    justifyContent: 'space-between'
+                    justifyContent: 'space-between',
                 }}
             >
                 {/* Zoom In */}
@@ -374,7 +373,9 @@ const OrderDelivery = ({ route, navigation }) => {
                         borderRadius: 30,
                         backgroundColor: COLORS.white,
                         alignItems: 'center',
-                        justifyContent: 'center'
+                    elevation:1,
+                        justifyContent: 'center',
+
                     }}
                     onPress={() => zoomIn()}
                 >
@@ -389,7 +390,9 @@ const OrderDelivery = ({ route, navigation }) => {
                         borderRadius: 30,
                         backgroundColor: COLORS.white,
                         alignItems: 'center',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                    elevation:1,
+
                     }}
                     onPress={() => zoomOut()}
                 >

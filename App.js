@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import {View,ActivityIndicator,StyleSheet} from 'react-native'
 
 import CustomDrawer from './navigation/customdrawer';
-
+import { LogBox } from 'react-native';
 import { createStore,applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
@@ -15,7 +15,7 @@ import { ApolloClient,ApolloProvider,InMemoryCache,createHttpLink } from "@apoll
 import { useFonts } from 'expo-font';
 import * as firebase from 'firebase'
 import useCachedResources from './hooks/useCachedResources';
-
+import fetch from 'cross-fetch';
 import {
     OnBoarding,
     SignIn,
@@ -33,7 +33,9 @@ import {
 const link = createHttpLink({
   uri:"https://shop-on-wheel-server.veensiva10.workers.dev/",
   useGETForQueries:true,
-  credentials: 'same-origin'
+  credentials: 'same-origin',
+  fetch
+
 });
 const client = new ApolloClient({
     link,
@@ -42,7 +44,7 @@ const client = new ApolloClient({
 )
 const Stack = createStackNavigator();
 const firebaseConfig = {
-  apiKey: "AIzaSyDs0lN9Jinxfj-_Sf1Wu57DSBTmltosr6I",
+  apiKey: "AIzaSyBJQaGPESpG-vlcnpajwa3IY0J6MNUIdYg",
   authDomain: "shoponwheel-7028e.firebaseapp.com",
   projectId: "shoponwheel-7028e",
   storageBucket: "shoponwheel-7028e.appspot.com",
@@ -50,7 +52,6 @@ const firebaseConfig = {
   appId: "1:19733146857:web:c6c2922a42542629f95478",
   measurementId: "G-Z1SC657WQG"
 };
-
 
 if (!firebase.apps.length) {
    firebase.initializeApp(firebaseConfig);
@@ -62,7 +63,7 @@ const store= createStore(
     rootReducer,
     applyMiddleware(thunk)
 )
-
+LogBox.ignoreAllLogs();
 const App = () => {
     const isLoadingComplete = useCachedResources();
     // const [loaded] = useFonts({

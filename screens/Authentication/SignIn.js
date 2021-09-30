@@ -69,13 +69,14 @@ const SignIn = ({navigation,userType}) => {
         if(userType=="vendor"){
             if (await checkVendorExist(values.email)){
                 signIn(values.email,values.password)
-                // console.log(checkVendorExist(values.email))
+                console.log(checkVendorExist(values.email))
                 
         }else{
             
         }
         }else if(userType="customer"){
            await signIn(values.email,values.password)
+           console.log(2)
       
         }
 
