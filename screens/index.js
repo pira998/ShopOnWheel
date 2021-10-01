@@ -35,6 +35,9 @@ import OrderDelivery from "./OrderDelivery/OrderDelivery";
 import Checkout from './Checkout/Checkout'
 import AddressConfirm from "./Checkout/AddressConfirm";
 import OrderSuccess from "./Checkout/OrderSuccess";
+import VendorUserBio from './Vendor/VendorInitial/UserBio'
+// import VendorLanguage from './'
+
 // import VendorsMap from './VendorsMap/VendorsMap'
 
 // import Cart from './Cart/Cart'
@@ -64,6 +67,7 @@ export {
     Checkout,
     AddressConfirm,
     OrderSuccess,
+    // VendorUserBio
     // VendorsMap
  
 

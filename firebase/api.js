@@ -10,15 +10,6 @@ export async function customerRegistration(email, password) {
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
     const currentUser = firebase.auth().currentUser;
-    // const [createUser,{_data}]= useMutation(gql`
-    //   mutation createUser($email:String!,$id:ID!){
-    //     createUser(email:$email,id:$id){
-    //       id
-    //       email
-    //     }
-    //   }
-    // `)
-    // createUser(email,currentUser.uid)
     const db = firebase.firestore();
     db.collection("users")
       .doc(currentUser.uid)
@@ -33,7 +24,7 @@ export async function customerRegistration(email, password) {
 export async function vendorRegistration(email, password) {
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
-    const currentVendor = firebase.auth().currentVender;
+    const currentVendor = firebase.auth().currentUser;
 
     const db = firebase.firestore();
     db.collection("vendors")

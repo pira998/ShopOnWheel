@@ -19,9 +19,9 @@ const GET_ALL_PRODUCTS = gql`
 }
 
 `
-const currency = new Intl.NumberFormat("en-LK", {
+const currency = new Intl.NumberFormat("en-UN", {
   style: "currency",
-  currency: "LKR",
+  currency: "USD",
 });
 
 export const HEIGHT = 64;

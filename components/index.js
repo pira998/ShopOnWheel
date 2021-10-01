@@ -11,6 +11,9 @@ import AuthTextButton from './AuthTextButton'
 import AuthTextIconButton from './AuthTextIconButton'
 import SwipeButton from './SwipeButton'
 import Rating from './Rating';
+import MapTextButton from './MapTextButton'
+import MapTextIconButton from './MapTextIconButton'
+
 export {
     Header,
     HorizontalFoodCard,
@@ -24,6 +27,8 @@ export {
     FormInput,
     CustomSwitch,
     SwipeButton,
-    Rating
+    Rating,
+    MapTextButton,
+    MapTextIconButton
 
 }
