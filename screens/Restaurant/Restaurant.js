@@ -10,6 +10,8 @@ import {
     Image,FlatList,StyleSheet,Alert
 } from 'react-native';
 
+import { gql, useQuery,useMutation } from '@apollo/client';
+
 
 import { connect } from 'react-redux';
 
@@ -18,16 +20,35 @@ import { isIphoneX } from 'react-native-iphone-x-helper'
 import Animated ,{useSharedValue,useAnimatedStyle,withTiming}from "react-native-reanimated";
 import { icons, COLORS, SIZES, FONTS } from '../../constants'
 
+const CREATE_REQUEST = gql`
+mutation createReq($input:RequestInput!){
+  createRequest(input:$input){
+    id
+    vendorId
+    productId
+  }  
+}
+
+`;
+
 
 const Restaurant = ({route,drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) => {
     const scrollX = new Animated.Value(0);
     const [restaurant, setRestaurant] = React.useState(null);
     const [currentLocation, setCurrentLocation] = React.useState(null);
     const [orderItems, setOrderItems] = React.useState([]);
+    const [createRequest, { data, loading, error }] = useMutation(CREATE_REQUEST);
     // const dotPosition = Animated.divide(scrollX, SIZES.width)
     const [progress,setProgress] = React.useState(new Animated.Value(0));
     const [orderItem,setOrderItem] = React.useState([])
-
+    const handleSubmit=()=>{
+        navigation.navigate('RequestSentSuccess')
+        createRequest({variables:{input:{ 
+            "customerId": "AXfH2oTUaqMXUvC0SS2cLO6GbMo1",
+            "vendorId": "2GpwoZn9enRd3VWti9LR",
+            "productId": "8HSv1HvVcreCJSFdyIDL"
+        }}})
+    }
     React.useEffect(() => {
         let { item } = route.params;
 
@@ -284,7 +305,28 @@ const Restaurant = ({route,drawerAnimationStyle,navigation,selectedTab,setSelect
                                             borderRadius: 25,
                                             elevation:12
                                         }}
-                                        onPress={() => {Alert.alert('Are you sure do you want to request this Item?')}} >
+                                        onPress={() => 
+                                             Alert.alert(
+                                                "Confirmation",
+                                                "Are you sure do you want to request this item?",
+                                                [
+                                            
+                                                {
+                                                    text: "Yes",
+                                                    onPress: () => {handleSubmit();setOrderItems([])},
+                                                    style: "default",
+                                                }, 
+                                                {
+                                                    text: "No",
+                                                    onPress: () => {},
+                                                    style: "cancel",
+                                                }, 
+                                                ],
+                                                {
+                                                cancelable: true,
+                                                })
+                                                        
+                                           } >
                                         <Text>Request</Text>
                                     </TouchableOpacity>
                                     }

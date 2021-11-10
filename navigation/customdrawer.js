@@ -260,10 +260,16 @@ const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
 
 const CustomDrawer=({selectedTab,setSelectedTab})=>{
     const [progress,setProgress] = React.useState(new Animated.Value(0));
+    const [loading, setLoading] = React.useState(true);
+    const [initializing, setInitializing] = React.useState(true);
     const [user, setUser] = React.useState(null);
      function onAuthStateChanged(user) {
         setUser(user);
-       
+        if(user != null){
+            navigation.navigate('Home')
+        }
+        if (initializing) setInitializing(false);
+            setLoading(false);
         } 
     React.useEffect(() => {
         const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
@@ -306,7 +312,7 @@ const CustomDrawer=({selectedTab,setSelectedTab})=>{
                  backgroundColor:'transparent'
              }}
 
-             initialRouteName="Home"
+             initialRouteName="MainLayout"
              drawerContent={props =>{
                  setTimeout(()=>{
                     setProgress(props.progress)

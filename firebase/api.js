@@ -15,6 +15,24 @@ export async function customerRegistration(email, password) {
       .doc(currentUser.uid)
       .set({
         email: currentUser.email,
+        address:{
+          city:'',
+          country:'',
+          houseNo:'',
+          street:'',
+          zip:''
+        },
+        cards:[],
+        createAt:firebase.firestore.FieldValue.serverTimestamp(),
+        language:'',
+        lastname:'',
+        location:{
+          Latitude:"",
+          Longitude:''
+        },
+        mobile:"",
+        paymentMethod:'',
+        username:""
 
       });
   } catch (err) {
@@ -24,13 +42,36 @@ export async function customerRegistration(email, password) {
 export async function vendorRegistration(email, password) {
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
-    const currentVendor = firebase.auth().currentUser;
+   const currentUser = firebase.auth().currentUser;
+       const db = firebase.firestore();
 
-    const db = firebase.firestore();
-    db.collection("vendors")
-      .doc(currentVendor.uid)
+    await db.collection("vendors")
+      .doc(currentUser.uid)
       .set({
-        email: currentVendor.email,
+        email: currentUser.email,
+        accountNumber:'',
+        address:{
+          city:'',
+          street:''
+        },
+        available:true,
+        courier:{
+          avatar:'',
+          name:''
+        },
+        createAt:'',
+        duration:'',
+        joinedDate:'',
+        location:{
+          latitude:0,
+          Longitude:0,
+        },
+        name:'',
+        photo:'',
+        priceRating:'',
+        rating:0,
+        registrationNumber:0
+
 
       });
   } catch (err) {
@@ -56,10 +97,11 @@ export async function loggingOut() {
   }
 }
 
-export async function checkVendorExist(){
+export async function checkVendorExist(email){
   let status = false 
   try{
     await firebase.firestore().collection('vendors').where('email','==',email).limit(1).get().then(snapshot=>{
+      console.log(snapshot)
       if(!snapshot.empty){
         status = true
         return status
@@ -75,3 +117,12 @@ export async function checkVendorExist(){
   return status
 }
 
+export async function forgotPassword(email) {
+  try {
+   await firebase
+      .auth()
+      .sendPasswordResetEmail(email);
+  } catch (err) {
+    Alert.alert("There is something wrong!", err.message);
+  }
+}

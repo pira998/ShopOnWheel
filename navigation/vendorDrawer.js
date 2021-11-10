@@ -9,9 +9,9 @@ import {
 }from '@react-navigation/drawer';
 
 
-import MainLayout from '../screens/MainLayout';
+import MainLayout from '../screens/Vendor/MainLayout';
 import MapRender from '../screens/MapRender/MapRender'
-import {  AddressConfirm, Checkout, OrderDelivery, OrderSuccess, Restaurant } from "../screens";
+import {  AddressConfirm, Checkout, DUMMY, OrderDelivery, OrderSuccess, Restaurant,VendorAddProduct,VendorDelivery,VendorRequests } from "../screens";
 
 import {
     COLORS,FONTS,SIZES,constants,icons
@@ -50,7 +50,7 @@ const GET_ALL_VENDORS = gql`
 
 const Drawer = createDrawerNavigator();
 
-const CustomDrawerItem =({lable,icon,isFocused,onPress}) =>{
+const VendorDrawerItem =({lable,icon,isFocused,onPress}) =>{
 
 
     return (
@@ -89,7 +89,7 @@ const CustomDrawerItem =({lable,icon,isFocused,onPress}) =>{
     )
 }
 
-const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
+const VendorDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
     const {loading,error,data} = useQuery(GET_ALL_VENDORS,{
         onCompleted:(data) =>{
             // console.log(data)
@@ -168,8 +168,8 @@ const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
                     marginTop:SIZES.padding
                 }}>
 
-                    <CustomDrawerItem
-                        lable={constants.screens.map}
+                    <VendorDrawerItem
+                        lable="Customers"
                         icon={icons.home}
                         isFocused={selectedTab== constants.screens.map}
                         onPress={()=>{
@@ -178,8 +178,8 @@ const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
                         }}
                         
                     />
-                    <CustomDrawerItem
-                        lable={constants.screens.home}
+                    <VendorDrawerItem
+                        lable="Products"
                         icon={icons.home}
                         isFocused={selectedTab== constants.screens.home}
                         onPress={()=>{
@@ -189,18 +189,18 @@ const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
                         
                     />
 
-                    <CustomDrawerItem
-                        lable={constants.screens.my_wallet}
+                    <VendorDrawerItem
+                        lable="Requests"
                         icon={icons.wallet}
                         isFocused={selectedTab== constants.screens.my_wallet}
                         onPress={()=>{
-                            setSelectedTab(constants.screens.my_wallet)
+                            setSelectedTab("Requests")
                             navigation.navigate("MainLayout")
                         }}
                     />
 
                     
-                    <CustomDrawerItem
+                    <VendorDrawerItem
                         lable={constants.screens.notification}
                         icon={icons.notification}
                         isFocused={selectedTab== constants.screens.notification}
@@ -222,19 +222,16 @@ const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
                     }>
 
                     </View>
-                    <CustomDrawerItem
-                        lable="Track Your Order Item"
+                    <VendorDrawerItem
+                        lable="Track Your Ordered Item"
                         icon={icons.location}
                          onPress={()=>{
                            
                             navigation.navigate("OrderDelivery")
                         }}
                     />
-                     <CustomDrawerItem
-                        lable="Cupons"
-                        icon={icons.coupon}
-                    />
-                     <CustomDrawerItem
+
+                     <VendorDrawerItem
                         lable="Setting"
                         icon={icons.setting}
                     />
@@ -245,7 +242,7 @@ const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
                 <View style={{
                     marginBottom:SIZES.padding
                 }}>
-                      <CustomDrawerItem
+                      <VendorDrawerItem
                         lable="LogOut"
                         icon={icons.logout}
                         onPress={()=>loggingOut()}
@@ -258,7 +255,7 @@ const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
     )
 }
 
-const CustomDrawer=({selectedTab,setSelectedTab})=>{
+const VendorDrawer=({selectedTab,setSelectedTab})=>{
     const [progress,setProgress] = React.useState(new Animated.Value(0));
     const [user, setUser] = React.useState(null);
      function onAuthStateChanged(user) {
@@ -313,7 +310,7 @@ const CustomDrawer=({selectedTab,setSelectedTab})=>{
 
                  },0)
                  return (
-                     <CustomDrawerContent 
+                     <VendorDrawerContent 
                         navigation={props.navigation}
                         selectedTab ={selectedTab}
                         setSelectedTab ={setSelectedTab}
@@ -338,13 +335,28 @@ const CustomDrawer=({selectedTab,setSelectedTab})=>{
                     drawerAnimationStyle={animatedStyle}
                     />}
                 </Drawer.Screen>
-                <Drawer.Screen name="Restaurant">
+                <Drawer.Screen name="AddProduct">
+                    {props=><VendorAddProduct {...props}
+                    drawerAnimationStyle={animatedStyle}
+                    />}
+                </Drawer.Screen>
+                 <Drawer.Screen name="DUMMY">
+                    {props=><DUMMY {...props}
+                    drawerAnimationStyle={animatedStyle}
+                    />}
+                </Drawer.Screen>
+                <Drawer.Screen name="Requests">
+                    {props=><VendorRequests {...props}
+                    drawerAnimationStyle={animatedStyle}
+                    />}
+                </Drawer.Screen>
+                  <Drawer.Screen name="Restaurant">
                     {props=><Restaurant {...props}
                     drawerAnimationStyle={animatedStyle}
                     />}
                 </Drawer.Screen>
-                 <Drawer.Screen name="CartDetails">
-                    {props=><Cart {...props}
+                 <Drawer.Screen name="Delivery">
+                    {props=><VendorDelivery {...props}
                     drawerAnimationStyle={animatedStyle}
                     />}
                 </Drawer.Screen>
@@ -377,7 +389,7 @@ const CustomDrawer=({selectedTab,setSelectedTab})=>{
     )
 }
 
-// export default CustomDrawer;
+// export default VendorDrawer;
 
 function mapStateToProps(state){
     return {
@@ -394,5 +406,5 @@ function mapDispatchToProps(dispatch){
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(CustomDrawer)
+export default connect(mapStateToProps,mapDispatchToProps)(VendorDrawer)
 

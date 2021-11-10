@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 import{ constants,images,FONTS,SIZES,COLORS} from '../../constants'
 import{TextButton} from '../../components'
-
+import { connect } from 'react-redux';
+import { setCount } from '../../stores/user/userActions';
 
 const OnBoarding = ({navigation}) => {
 
@@ -134,7 +135,7 @@ const OnBoarding = ({navigation}) => {
                         labelStyle={{
                             color:COLORS.darkGray2
                         }}
-                        onPress={()=>navigation.replace('Welcome')}
+                        onPress={()=>{setCount(1); navigation.replace('Welcome')}}
                     />
                         
                     <TextButton label="Next"
@@ -165,7 +166,7 @@ const OnBoarding = ({navigation}) => {
                                 height:60,
                                 borderRadius:SIZES.radius,
                             }}
-                            onPress={()=>navigation.replace("Welcome")}
+                            onPress={()=>{setCount(1); navigation.replace('Welcome')}}
                         />
 
                     </View> 
@@ -290,4 +291,18 @@ const OnBoarding = ({navigation}) => {
     )
 }
 
-export default OnBoarding;
+
+function mapStateToProps(state){
+    return {
+        count:state.userReducer.count
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return{
+        setCount:(count)=>{return dispatch(setCount(count))
+        }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(OnBoarding)

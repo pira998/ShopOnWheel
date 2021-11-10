@@ -1,7 +1,7 @@
 //components
-import { Header } from '../../components';
+import { Header } from '../../../components';
 
-import React from 'react';
+import React,{useState,useRef} from 'react';
 import {
     View,
     Text,
@@ -16,15 +16,17 @@ import { connect } from 'react-redux';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-import {COLORS,icons,constants,SIZES,FONTS,images} from '../../constants'
-import dummyData from '../../constants/dummyData';
+import {COLORS,icons,constants,SIZES,FONTS,images} from '../../../constants'
+import dummyData from '../../../constants/dummyData';
 
-import { FormInput,AuthTextButton } from '../../components';
+import { FormInput,AuthTextButton } from '../../../components';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { gql, useQuery,useMutation } from '@apollo/client';
+import MultiSelect from 'react-native-multiple-select';
+
 
 const UPDATE_PROFILE = gql`
 mutation updateProfile($input:ProfileInput!) {
@@ -32,32 +34,42 @@ mutation updateProfile($input:ProfileInput!) {
   }
 
 `;
+const items = [{
+    id: '1',
+    name: 'Featured'
+  }, {
+    id: '2',
+    name: 'Popular'
+  }, {
+    id: '3',
+    name: 'Newest'
+  }, {
+    id: '4',
+    name: 'Trending'
+  },
+   {
+    id: '5',
+    name: 'Recommended'
+  },
+
+];
 
 
-
-const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) => {
+const AddProduct = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) => {
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-     const [updateProfile, { data, loading, error }] = useMutation(UPDATE_PROFILE);
-    
-    
+    const [updateProfile, { data, loading, error }] = useMutation(UPDATE_PROFILE);
+    const [categories, setCategories] = useState([])
+    const ref = useRef();
     const LoginSchema = Yup.object().shape({
-    password: Yup.string()
-    .min(6, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
 
-    passwordConfirmation: Yup.string()
-    .equals([Yup.ref("password")],"Passwords don't match")
-    .required('Required'),
-     lastname: Yup.string()
+    productName: Yup.string()
     .min(6, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
-    mobile: Yup.string()
-    .matches(phoneRegExp, 'Phone number is not valid'),
-    username: Yup.string().min(6,'Too Short!').max(50,'Too Long!').required('Required'),
-    email: Yup.string().email('Invalid email').required('Required'),
-    });
+    price: Yup.string(),
+    calories: Yup.string(),
+    description: Yup.string().min(6,'Too Short!').max(50,'Too Long!').required('Required'),
+        });
     const {
     handleChange,
     handleBlur,
@@ -69,37 +81,15 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
   } = useFormik({
     validationSchema: LoginSchema,
     initialValues: { 
-        email: 'va@gmail.com', 
-        password: '123456', 
-        remember: false ,
-        showPass:false, 
-        username: 'praveen', 
-        mobile: '0769618638', 
-        lastname: "sivakumar",
-        address:'',
-        passwordConfirmation:'123456'
+        productName:'',
+        description:'',
+        calories:'',
+        price:0,
         
-    
-    
     },
     onSubmit: async (values) => {
-        navigation.navigate('ProfileUpdateSuccess')
-        updateProfile({variables:{ input: {
-            "mobile": values.mobile,
-            "address": {
-            "zip": "40000",
-            "city": "jaffna",
-            "country": "Sri Lanka",
-            "street": "K.K.S road",
-            "houseNo": "42"
-            },
-            "language": "english",
-            "lastname": values.lastname,
-            "username": values.username,
-            "cards": [],
-            
-  }}})
-       
+        navigation.navigate('MainLayout')
+        
     }
   });
 
@@ -131,7 +121,7 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
                     alignItems:'center'
                 }
             }
-            title="Profile"
+            title="Add Product"
             leftComponent={
                 <TouchableOpacity
                 style={{
@@ -172,34 +162,16 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
                 contentContainerStyle={{paddingHorizontal:SIZES.padding}}>
                 {/* App Icon */}
                 <View style={styles.profileContainer} >
-                       <View style={styles.profileImage} >
-                                 <Image
-                                    source={dummyData.myProfile.profile_image}
-                                    style={{
-                                        width:100,
-                                        height:100,
-                                        borderRadius:SIZES.radius
-                                    }}
-                                    >
-                                    </Image>
-                                   
-                        </View>
-                                     <TouchableOpacity>
-                                      <Text style={styles.editProfile} >
-                                       Edit Profile
-                                      </Text>
-                                    </TouchableOpacity>
-                                    <Text style={styles.username} >
-                                        Hi there Praveen
-                                     </Text>
+                     
+                                    
                                      
                 </View>
                        <FormInput 
-                label="First name"
+                label="Product Name"
                 keyboardType = "default"
                 autoCompleteType = "username"
-                onChangeText = {handleChange("username")}
-                errorMsg= {errors.username}
+                onChangeText = {handleChange("productName")}
+                errorMsg= {errors.productName}
                 appendComponent={
                     <View
                         style={{
@@ -207,11 +179,11 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
                         }}
                     >
                         <Image 
-                            source={values.username==""||(values.username!=""&& typeof errors.username == 'undefined')? icons.correct:icons.cross} 
+                            source={values.productName==""||(values.productName!=""&& typeof errors.productName == 'undefined')? icons.correct:icons.cross} 
                             style = {{
                                 height:20,
                                 width:20,
-                                tintColor:values.username==""?COLORS.gray : (values.username!=""&& typeof errors.username == 'undefined')? COLORS.green: COLORS.red
+                                tintColor:values.productName==""?COLORS.gray : (values.productName!=""&& typeof errors.productName == 'undefined')? COLORS.green: COLORS.red
                             }}
                             />
                     </View>
@@ -219,11 +191,11 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
             
             />
             <FormInput 
-                label="Last name"
+                label="Description"
                 keyboardType = "default"
                 autoCompleteType = "username"
-                onChangeText = {handleChange("lastname")}
-                errorMsg= {errors.lastname}
+                onChangeText = {handleChange("description")}
+                errorMsg= {errors.description}
 
                 appendComponent={
                     <View
@@ -232,23 +204,23 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
                         }}
                     >
                         <Image 
-                            source={values.lastname==""||(values.lastname!=""&& typeof errors.lastname == 'undefined')? icons.correct:icons.cross} 
+                            source={values.description==""||(values.description!=""&& typeof errors.description == 'undefined')? icons.correct:icons.cross} 
                             style = {{
                                 height:20,
                                 width:20,
-                                tintColor:values.lastname==""?COLORS.gray : (values.lastname!=""&& typeof errors.lastname == 'undefined')? COLORS.green: COLORS.red
+                                tintColor:values.description==""?COLORS.gray : (values.description!=""&& typeof errors.description == 'undefined')? COLORS.green: COLORS.red
                             }}
                             />
                     </View>
                 }
             
             />
-            <FormInput 
-                label="Mobile"
+              <FormInput 
+                label="Price"
                 keyboardType = "numeric"
-                autoCompleteType = "tel"
-                onChangeText = {handleChange("mobile")}
-                errorMsg= {errors.mobile}
+                autoCompleteType = "username"
+                onChangeText = {handleChange("price")}
+                errorMsg= {errors.price}
 
                 appendComponent={
                     <View
@@ -257,25 +229,26 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
                         }}
                     >
                         <Image 
-                            source={values.mobile==""||(values.mobile!=""&& typeof errors.mobile == 'undefined')? icons.correct:icons.cross} 
+                            source={values.price==""||(values.price!=""&& typeof errors.price == 'undefined')? icons.correct:icons.cross} 
                             style = {{
                                 height:20,
                                 width:20,
-                                tintColor:values.mobile==""?COLORS.gray : (values.mobile!=""&& typeof errors.mobile == 'undefined')? COLORS.green: COLORS.red
+                                tintColor:values.price==""?COLORS.gray : (values.price!=""&& typeof errors.price == 'undefined')? COLORS.green: COLORS.red
                             }}
                             />
                     </View>
                 }
             
             />
-               
+         
+           
             <FormInput 
-                label="Email"
+                label="Calories"
                 keyboardType = "email-address"
                 autoCompleteType = "email"
-                onChangeText = {handleChange('email')}
-                errorMsg= {errors.email}
-                touched={touched.email}
+                onChangeText = {handleChange('calories')}
+                errorMsg= {errors.calories}
+                touched={touched.calories}
 
                 appendComponent={
                     <View
@@ -284,17 +257,46 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
                         }}
                     >
                         <Image 
-                            source={values.email==""||(values.email!=""&& typeof errors.email =="undefined")? icons.correct:icons.cross} 
+                            source={values.calories==""||(values.calories!=""&& typeof errors.calories =="undefined")? icons.correct:icons.cross} 
                             style = {{
                                 height:20,
                                 width:20,
-                                tintColor:  values.email==""?COLORS.gray : (values.email!=""&&typeof errors.email == "undefined")? COLORS.green: COLORS.red
+                                tintColor:  values.calories==""?COLORS.gray : (values.calories!=""&&typeof errors.calories == "undefined")? COLORS.green: COLORS.red
                             }}
                             />
                     </View>
                 }
             
             />
+
+            <View style={{
+                  marginTop:20
+                }} >
+                <MultiSelect
+                    items={items}
+                    ref={ref}
+                    uniqueKey="id"
+                    onSelectedItemsChange={setCategories}
+                    selectedItems={categories}
+                    selectText="Select Categories"
+                    searchInputPlaceholderText="Search Items..."
+                    onChangeInput={ (text)=> console.log(text)}
+                    altFontFamily="sans-serif"
+                    tagRemoveIconColor="#dedede"
+                    tagBorderColor="#dedede"
+                    tagTextColor="#dedede"
+                    selectedItemTextColor="#CCC"
+                    selectedItemIconColor="#CCC"
+                    itemTextColor="#000"
+                    displayKey="name"
+                    searchInputStyle={{ color: '#CCC' }}
+                    submitButtonColor="#CCC"
+                    submitButtonText="Submit"
+                />
+                {console.log(ref.current)}     
+                
+            </View>
+
 {/* 
             <FormInput
                 label="Username"
@@ -322,77 +324,11 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
                 }
             /> */}
 
-                <FormInput 
-                label="Password"
-                secureTextEntry={!values.showPass}
-                autoCompleteType="password"
-                touched={touched.password}
-                containerStyle={{
-                    marginTop:SIZES.radius,
-                }}
-                onChangeText={handleChange('password')}
-                errorMsg = {errors.password}
-
-                appendComponent={
-                   <TouchableOpacity
-                        style={{
-                            width:40,
-                            alignItems:'flex-end',
-                            justifyContent:'center',
-
-                        }}
-                        onPress={()=>setFieldValue("showPass",!values.showPass)}
-
-                   >
-                       <Image 
-                            source = {!values.showPass ? icons.eye_close:icons.eye}
-                            style={{
-                                height:20,
-                                width:20,
-                                tintColor:COLORS.gray
-                            }}
-                       />
-                   </TouchableOpacity> 
-                }
-            />
-
-            <FormInput 
-                label="Confirm Password"
-                secureTextEntry={!values.showPass}
-                autoCompleteType="password"
-                containerStyle={{
-                    marginTop:SIZES.radius,
-                }}
-                onChangeText={handleChange('passwordConfirmation')}
-                errorMsg = {errors.passwordConfirmation}
-
-                appendComponent={
-                   <TouchableOpacity
-                        style={{
-                            width:40,
-                            alignItems:'flex-end',
-                            justifyContent:'center',
-
-                        }}
-                        onPress={()=>setFieldValue("showPass",!values.showPass)}
-
-                   >
-                       <Image 
-                            source = {!values.showPass ? icons.eye_close:icons.eye}
-                            style={{
-                                height:20,
-                                width:20,
-                                tintColor:COLORS.gray
-                            }}
-                       />
-                   </TouchableOpacity> 
-                }
-            />
 
                 {/* Sign up & Sign In */}
 
                 <AuthTextButton
-                    label="Save"
+                    label="Add"
                     // disabled ={isEnabledSignUp()?false:true}
                     buttonContainerStyle={{
                         height:55,
@@ -440,7 +376,7 @@ function mapDispatchToProps(dispatch){
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Profile)
+export default connect(mapStateToProps,mapDispatchToProps)(AddProduct)
 
 const styles= StyleSheet.create({
     container:{

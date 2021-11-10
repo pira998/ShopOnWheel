@@ -311,7 +311,7 @@ function renderMap(){
                                 customLabelStyle={{
                                     ...FONTS.h3
                                 }}
-                                onPress={()=>console.log("Details")}/>
+                                onPress={()=>navigation.navigate('Restaurant')}/>
 
                             <View
 
@@ -327,7 +327,7 @@ function renderMap(){
                                         ...FONTS.body5,
                                         fontSize:Platform.OS==='ios' ?SIZES.body4: SIZES.body5
                                     }}>
-                                        from ${selectedHotel?.price}/night 
+                                     
                                     </Text>
 
                 </View>

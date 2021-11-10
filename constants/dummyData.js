@@ -3,6 +3,12 @@ const myProfile = {
     profile_image: require("../assets/images/profile.png"),
     address: "No. 88, Jln Padungan, Kuching"
 }
+const myProfile_2 = {
+    name: "Prathees",
+    profile_image: require("../assets/images/profile2.png"),
+    address: "No. 88, Jln Padungan, Kuching"
+}
+
 
 const categories = [
     {
@@ -71,7 +77,7 @@ const menu = [
         id: 1,
         name: "Featured",
         list: [
-            hamburger, hotTacos, vegBiryani,
+            hamburger, hotTacos, vegBiryani,wrapSandwich,hamburger
         ]
     },
     {
@@ -116,6 +122,7 @@ const menu = [
 const menuTitle=[{id:1, name:'Rec'},{id:2, name:'ad'}]
 export default {
     myProfile,
+    myProfile_2,
     categories,
     menu,
     menuTitle

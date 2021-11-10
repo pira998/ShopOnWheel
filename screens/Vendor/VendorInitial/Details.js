@@ -8,13 +8,13 @@ import {
     ActivityIndicator
 } from 'react-native';
 import * as firebase from 'firebase'
-import { FormInput,CustomSwitch,AuthTextButton ,AuthTextIconButton } from '../../components';
+import { FormInput,CustomSwitch,AuthTextButton ,AuthTextIconButton } from '../../../components';
 import { connect } from 'react-redux';
-import {COLORS,SIZES,FONTS,icons} from '../../constants'
+import {COLORS,SIZES,FONTS,icons} from '../../../constants'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Layout from './Layout'
-import { setUsername,setLastname,setMobile } from '../../stores/customer/customerActions';
+
 
 
 
@@ -44,7 +44,6 @@ const UserBio = ({userType,navigation}) => {
     validationSchema: LoginSchema,
     initialValues: { username: '', mobile: '', lastname: "",address: "" },
     onSubmit: async (values) => {
-        
         navigation.navigate('CustomerLanguage')
     }})
     function isFormFilled(){
@@ -195,29 +194,4 @@ const UserBio = ({userType,navigation}) => {
     )
 }
 
-function mapStateToProps(state){
-    return {
-        username:state.tabReducer.username,
-        lastname:state.tabReducer.lastname,
-        mobile:state.tabReducer.mobile
-    }
-}
-
-function mapDispatchToProps(dispatch){
-    return{
-        setUsername:(username)=>{return dispatch
-            (setUsername(username))
-
-        },
-        setLastname:(lastname)=>{return dispatch
-            (setLastname(lastname))
-
-        },
-        setMobile:(mobile)=>{return dispatch
-            (setMobile(mobile))
-
-        }
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(UserBio)
+export default UserBio

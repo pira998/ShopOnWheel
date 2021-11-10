@@ -27,8 +27,13 @@ import {
     CustomerLanguage,
     CustomerSetLocation,
     CustomerSignUpSuccess,
-    CustomerPaymentOption
+    CustomerPaymentOption,
+    VendorDetails,
+    EmailSentSuccess,
+    RequestSentSuccess,
+    ProfileUpdateSuccess
 } from './screens/index'
+import vendorDrawer from './navigation/vendorDrawer';
 
 const link = createHttpLink({
   uri:"https://shop-on-wheel-server.veensiva10.workers.dev/",
@@ -80,7 +85,7 @@ const App = () => {
         const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
         return subscriber; // unsubscribe on unmount
     }, []);
-
+    
     if (loading || !isLoadingComplete) {
         return (
         
@@ -90,13 +95,14 @@ const App = () => {
     }
 
 
-
+// && store.getState().userReducer.userType =="customer" ? CustomDrawer : user  && store.getState().userReducer.userType =="vendor" ? vendorDrawer
 
     return (
         <ApolloProvider client={client} >
 
        
         <Provider store={store}>
+          
         <NavigationContainer>
             <Stack.Navigator
                 screenOptions={{
@@ -104,10 +110,9 @@ const App = () => {
                 }}
                 initialRouteName={'Onboarding'}
             >
-            
                 <Stack.Screen
                     name="Home"
-                    component={user ? CustomDrawer : Welcome}
+                    component={user ? vendorDrawer :Welcome}
                 />
                 <Stack.Screen
                     name="Welcome"
@@ -140,6 +145,18 @@ const App = () => {
                     component={Otp}
                 />
                 <Stack.Screen
+                    name="EmailSentSuccess"
+                    component={EmailSentSuccess}
+                />
+                <Stack.Screen
+                    name="RequestSentSuccess"
+                    component={RequestSentSuccess}
+                />
+                <Stack.Screen
+                    name="ProfileUpdateSuccess"
+                    component={ProfileUpdateSuccess}
+                />
+                <Stack.Screen
                     name="CustomerLanguage"
                     component={CustomerLanguage}
                 />
@@ -158,6 +175,10 @@ const App = () => {
                 <Stack.Screen
                     name="CustomerSignUpSuccess"
                     component={CustomerSignUpSuccess}
+                />
+                <Stack.Screen
+                    name="VendorDetails"
+                    component={VendorDetails}
                 />
                 
                 

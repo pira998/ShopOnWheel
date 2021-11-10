@@ -536,7 +536,7 @@ function renderMenuTypes(){
                         marginRight:index=popular.length-1 ? SIZES.padding:0
                     }}
                     item={item}
-                    onPress={(e)=> { e.preventDefault(); navigation.navigate('Restaurant',{
+                    onPress={(e)=> {navigation.navigate('Restaurant',{
                         item,index
                     })}}
                   />

@@ -60,17 +60,15 @@ const SignUp = ({navigation,userType}) => {
         initialValues: { email: '', password: '', passwordConfirmation:'',showPass:false },
         onSubmit: (values) =>{
             if(userType=="vendor"){
-                   vendorRegistration(values.email,values.password)
+                console.log("hi")
+                vendorRegistration(values.email,values.password)
             }else if (userType=="customer"){
                 customerRegistration(values.email,values.password)
             }
     }});
 
     function isEnabledSignUp(){
-        // console.log(errors.passwordConfirmation)
-            console.log(values)
-      
-        return values.email != "" && values.password != "" && typeof errors.email == "undefined" && typeof errors.passwordConfirmation == "undefined";
+          return values.email != "" && values.password != "" && typeof errors.email == "undefined" && typeof errors.passwordConfirmation == "undefined";
     }
     
     
@@ -81,7 +79,11 @@ const SignUp = ({navigation,userType}) => {
     function onAuthStateChanged(user) {
         setUser(user);
         if(user != null){
-            navigation.navigate('CustomerUserBio')
+            if (userType=="customer"){
+                navigation.navigate('CustomerUserBio')
+            }else{
+                navigation.navigate('VendorDetails')
+            }
         }
         if (initializing) setInitializing(false);
             setLoading(false);

@@ -1,5 +1,5 @@
 //components
-import { Header } from '../components';
+import { Header } from '../../components';
 
 import React from 'react';
 import {
@@ -15,7 +15,7 @@ import LinearGradient from "react-native-linear-gradient"; // expo is diffrent i
 
 import { connect } from 'react-redux';
 import { setSelectedTab } from '../../stores/tab/tabActions';
-import { Home,Search,CartTab ,Favourite,Notification,} from '../../screens/index';
+import { Home,Search,CartTab ,Favourite,Notification, VendorProduct,VendorRequests} from '../../screens/index';
 import MapRender from '../MapRender/MapRender';
 
 import {COLORS,icons,constants,SIZES,FONTS} from '../../constants'
@@ -246,7 +246,7 @@ const MainLayout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}
                     justifyContent:'center'
                 }}>
                     <Image 
-                    source={dummyData.myProfile.profile_image}
+                    source={dummyData.myProfile_2.profile_image}
                     style={{
                         width:40,
                         height:40,
@@ -280,8 +280,8 @@ const MainLayout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}
                          }}
                          >
                              
-                             {selectedTab == constants.screens.home && <Home navigation={navigation}/>}
-                             {selectedTab == constants.screens.search && <Search />}
+                             {selectedTab == constants.screens.home && <VendorProduct navigation={navigation}/>}
+                             {selectedTab == "Requests"&& <VendorRequests navigation={navigation} />}
                              {selectedTab== constants.screens.cart && <CartTab />}
                              {selectedTab == constants.screens.favourite  && <Notification />}
                              {selectedTab == constants.screens.map  && <MapRender />}

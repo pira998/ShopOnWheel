@@ -66,17 +66,19 @@ const SignIn = ({navigation,userType}) => {
     validationSchema: LoginSchema,
     initialValues: { email: '', password: '', remember: false ,showPass:false },
     onSubmit: async (values) => {
+         setLoading(false);
         if(userType=="vendor"){
-            if (await checkVendorExist(values.email)){
+            // console.log(checkVendorExist(values.email))
+            if (checkVendorExist(values.email)){
                 signIn(values.email,values.password)
-                console.log(checkVendorExist(values.email))
+               
                 
         }else{
             
         }
         }else if(userType="customer"){
            await signIn(values.email,values.password)
-           console.log(2)
+          
       
         }
 

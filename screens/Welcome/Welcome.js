@@ -3,13 +3,16 @@ import { View, Text } from 'react-native'
 import AuthLayout  from '../Authentication/AuthLayout';
 import{ COLORS,SIZES,FONTS,icons} from '../../constants'
 
-
 import  {FormInput,CustomSwitch,TextButton,TextIconButton} from '../../components';
 import { connect } from 'react-redux';
 import { setUserType } from '../../stores/user/userActions';
 
+
+
+
 const Welcome = ({navigation,setUserType,userType}) => {
     return (
+     
         <AuthLayout
              title="Welcome to Eatme"
             subtitle="A simple common paltform for mobile vendors and customers"
@@ -37,7 +40,7 @@ const Welcome = ({navigation,setUserType,userType}) => {
                 // onPress={handleSubmit}
                  onPress={()=>{
                      setUserType('customer');
-                   
+                      console.log(userType)
                      navigation.navigate("SignIn");
                     }}
 
@@ -74,6 +77,7 @@ const Welcome = ({navigation,setUserType,userType}) => {
 
         </View>
         </AuthLayout>
+     
     )
 }
 

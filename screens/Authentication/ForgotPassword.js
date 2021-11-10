@@ -10,37 +10,16 @@ import AuthLayout from './AuthLayout';
 import {COLORS,SIZES,FONTS,icons} from '../../constants'
 
 
-import { FormInput,CustomSwitch,TextButton,TextIconButton } from '../../components';
+import { FormInput,CustomSwitch,AuthTextButton,TextIconButton } from '../../components';
 import {utils} from '../../utils'
+import {forgotPassword} from '../../firebase/api.js'
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
 import { gql, useQuery } from '@apollo/client';
-// import gql from 'graphql-tag'
-// import {ApolloProvider,Query} from 'react-apollo'
-// import axios from 'axios'
 
-// import axios from 'axios'
-// import query from './query'
 
-// export async function getUsers() {
-//   const gitHubCall = await axios.post(
-//     `https://api.github.com/graphql`,
-//     {
-//       // query using ES6+ shorthand
-//       // query can be like query: query,
-//       query,
-//       variables: {
-//         username: 'spences10',
-//       },
-//     },
 
-//     {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: 'token ' + process.env.GITHUB_TOKEN,
-//       },
-//     }
-//   )
-//   return gitHubCall.data.data
-// }
 
 const GET_USERS = gql`
     {
@@ -53,12 +32,34 @@ const GET_USERS = gql`
 `
 
 const ForgotPassword = ({navigation}) => {
-    const [email,setEmail] = React.useState("")
+    const LoginSchema = Yup.object().shape({
+        email: Yup.string().email('Invalid email').required('Required'),
+    });
 
-    const [emailError,setEmailError] = React.useState("")
+    const {
+    handleChange,
+    handleBlur,
+    values,
+    handleSubmit,
+    errors,
+    touched,
+    setFieldValue
+  } = useFormik({
+    validationSchema: LoginSchema,
+    initialValues: { email: '', password: '', remember: false ,showPass:false },
+    onSubmit: async (values) => {
+      
+        forgotPassword(values.email);
+        navigation.navigate('EmailSentSuccess')
+       
+    }
+  });
 
-    function isEnableSendEmail(){
-        return email!=""&& emailError== ""
+
+
+
+    function isEnabledSignIn(){
+        return values.email != "" && typeof errors.email == 'undefined'
     }
 
     const {loading,error,data} = useQuery(GET_USERS,{
@@ -68,11 +69,7 @@ const ForgotPassword = ({navigation}) => {
         }
     })
 
-    // data.users.map(({email})=>{
-    //     setEmail(email)
-    // })
-    // console.log(loading)
-    // console.log(1+error)
+
     return (
         <KeyboardAvoidingView style={{flex:1,justifyContent:"center"}} >
        <AuthLayout
@@ -98,16 +95,12 @@ const ForgotPassword = ({navigation}) => {
                      marginTop:SIZES.padding*2
                 }}
             >
-              <FormInput 
+               <FormInput 
                 label="Email"
                 keyboardType = "email-address"
                 autoCompleteType = "email"
-                onChange = {(value)=>{
-                    utils.validateEmail(value,setEmailError)
-                    setEmail(value)
-                }}
-                errorMsg= {emailError}
-             
+                onChangeText = {handleChange("email")}
+                errorMsg= {errors.email}
                 appendComponent={
                     <View
                         style={{
@@ -115,36 +108,37 @@ const ForgotPassword = ({navigation}) => {
                         }}
                     >
                         <Image 
-                            source={email==""||(email!=""&& emailError =="")? icons.correct:icons.cross} 
+                            source={values.email==""||(values.email!=""&& typeof errors.email == 'undefined')? icons.correct:icons.cross} 
                             style = {{
                                 height:20,
                                 width:20,
-                                tintColor:email==""?COLORS.gray : (email!=""&&emailError == "")? COLORS.green: COLORS.red
+                                tintColor:values.email==""?COLORS.gray : (values.email!=""&& typeof errors.email == 'undefined')? COLORS.green: COLORS.red
                             }}
                             />
                     </View>
                 }
             
-            />   
-            
+            />
              
             </View>
 
 
             {/* Button  */}
-            <TextButton 
+            <AuthTextButton 
                 label="Send Email"
-                disabled={isEnableSendEmail()?false:true}
+                disabled={isEnabledSignIn()?false:true}
                 buttonContainerStyle={{
                     height:55,
                     alignItems:'center',
                     marginTop:SIZES.padding,
                     borderRadius: SIZES.radius,
-                    backgroundColor: isEnableSendEmail()? COLORS.primary:'rgba(227, 120, 75, 0.4)',
+                    backgroundColor: isEnabledSignIn()? COLORS.primary:COLORS.transparentPrimary,
 
                 }}
-                onPress={()=>navigation.goBack()}
-            />
+                onPress={handleSubmit}
+            >
+
+            </AuthTextButton>
 
 
        
