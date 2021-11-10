@@ -91,9 +91,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return{
-        setUserType:(userType)=>{return dispatch(setUserType(userType))
-
-        }
+        setUserType:(userType)=>{return dispatch(setUserType(userType))}
     }
 }
 

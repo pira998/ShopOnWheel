@@ -25,6 +25,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { gql, useQuery,useMutation } from '@apollo/client';
+import { setUsername,setLastname,setMobile,setAddress } from '../../stores/customer/customerActions';
+
 
 const UPDATE_PROFILE = gql`
 mutation updateProfile($input:ProfileInput!) {
@@ -35,7 +37,7 @@ mutation updateProfile($input:ProfileInput!) {
 
 
 
-const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) => {
+const Profile = ({drawerAnimationStyle,navigation,setUsername,setLastname,setMobile,setAddress}) => {
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
      const [updateProfile, { data, loading, error }] = useMutation(UPDATE_PROFILE);
     
@@ -76,29 +78,29 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
         username: 'praveen', 
         mobile: '0769618638', 
         lastname: "sivakumar",
-        address:'',
+        houseNo:12,
+        street:'',
+        city:'',
+        country:'',
+        zip:'',
         passwordConfirmation:'123456'
         
     
     
     },
-    onSubmit: async (values) => {
-        navigation.navigate('ProfileUpdateSuccess')
-        updateProfile({variables:{ input: {
-            "mobile": values.mobile,
-            "address": {
-            "zip": "40000",
-            "city": "jaffna",
-            "country": "Sri Lanka",
-            "street": "K.K.S road",
-            "houseNo": "42"
-            },
-            "language": "english",
-            "lastname": values.lastname,
-            "username": values.username,
-            "cards": [],
-            
-  }}})
+    onSubmit: (values) => {
+        setUsername(values.username)
+        setLastname(values.lastname)
+        setMobile(values.mobile)
+        setAddress({
+            houseNo:values.houseNo,
+            street:values.street,
+            city:values.city,
+            country:values.country,
+            zip:values.zip
+        })
+        navigation.navigate('CustomerLanguage')
+
        
     }
   });
@@ -268,15 +270,12 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
                 }
             
             />
-               
-            <FormInput 
-                label="Email"
-                keyboardType = "email-address"
-                autoCompleteType = "email"
-                onChangeText = {handleChange('email')}
-                errorMsg= {errors.email}
-                touched={touched.email}
-
+               <FormInput 
+                label="Street"
+                keyboardType = "default"
+                autoCompleteType = "username"
+                onChangeText = {handleChange("houseNo")}
+                errorMsg= {errors.houseNo}
                 appendComponent={
                     <View
                         style={{
@@ -284,25 +283,24 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
                         }}
                     >
                         <Image 
-                            source={values.email==""||(values.email!=""&& typeof errors.email =="undefined")? icons.correct:icons.cross} 
+                            source={values.houseNo==""||(values.houseNo!=""&& typeof errors.houseNo == 'undefined')? icons.correct:icons.cross} 
                             style = {{
                                 height:20,
                                 width:20,
-                                tintColor:  values.email==""?COLORS.gray : (values.email!=""&&typeof errors.email == "undefined")? COLORS.green: COLORS.red
+                                tintColor:values.houseNo==""?COLORS.gray : (values.houseNo!=""&& typeof errors.houseNo == 'undefined')? COLORS.green: COLORS.red
                             }}
                             />
                     </View>
                 }
             
             />
-{/* 
-            <FormInput
-                label="Username"
-                containerStyle={{
-                    marginTop:SIZES.radius,
-                }}
-                onChange={handleChange('username')}
-                errorMsg = {usernameError}
+
+               <FormInput 
+                label="Street"
+                keyboardType = "default"
+                autoCompleteType = "username"
+                onChangeText = {handleChange("street")}
+                errorMsg= {errors.street}
                 appendComponent={
                     <View
                         style={{
@@ -310,89 +308,95 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
                         }}
                     >
                         <Image 
-                            source ={username== ""|| (username != "" && usernameError == "")?icons.correct:icons.cross}
-                            style={{
+                            source={values.street==""||(values.street!=""&& typeof errors.street == 'undefined')? icons.correct:icons.cross} 
+                            style = {{
                                 height:20,
                                 width:20,
-                                tintColor:username==""?COLORS.gray:(username!= "" && usernameError == "")? COLORS.green : COLORS.red
+                                tintColor:values.street==""?COLORS.gray : (values.street!=""&& typeof errors.street == 'undefined')? COLORS.green: COLORS.red
                             }}
-                        />
-
+                            />
                     </View>
                 }
-            /> */}
-
-                <FormInput 
-                label="Password"
-                secureTextEntry={!values.showPass}
-                autoCompleteType="password"
-                touched={touched.password}
-                containerStyle={{
-                    marginTop:SIZES.radius,
-                }}
-                onChangeText={handleChange('password')}
-                errorMsg = {errors.password}
-
+            
+            />
+               <FormInput 
+                label="City"
+                keyboardType = "default"
+                autoCompleteType = "username"
+                onChangeText = {handleChange("city")}
+                errorMsg= {errors.city}
                 appendComponent={
-                   <TouchableOpacity
+                    <View
                         style={{
-                            width:40,
-                            alignItems:'flex-end',
-                            justifyContent:'center',
-
+                            justifyContent:'center'
                         }}
-                        onPress={()=>setFieldValue("showPass",!values.showPass)}
-
-                   >
-                       <Image 
-                            source = {!values.showPass ? icons.eye_close:icons.eye}
-                            style={{
+                    >
+                        <Image 
+                            source={values.city==""||(values.city!=""&& typeof errors.city == 'undefined')? icons.correct:icons.cross} 
+                            style = {{
                                 height:20,
                                 width:20,
-                                tintColor:COLORS.gray
+                                tintColor:values.city==""?COLORS.gray : (values.city!=""&& typeof errors.city == 'undefined')? COLORS.green: COLORS.red
                             }}
-                       />
-                   </TouchableOpacity> 
+                            />
+                    </View>
                 }
+            
             />
-
-            <FormInput 
-                label="Confirm Password"
-                secureTextEntry={!values.showPass}
-                autoCompleteType="password"
-                containerStyle={{
-                    marginTop:SIZES.radius,
-                }}
-                onChangeText={handleChange('passwordConfirmation')}
-                errorMsg = {errors.passwordConfirmation}
-
+               <FormInput 
+                label="Country"
+                keyboardType = "default"
+                autoCompleteType = "username"
+                onChangeText = {handleChange("country")}
+                errorMsg= {errors.country}
                 appendComponent={
-                   <TouchableOpacity
+                    <View
                         style={{
-                            width:40,
-                            alignItems:'flex-end',
-                            justifyContent:'center',
-
+                            justifyContent:'center'
                         }}
-                        onPress={()=>setFieldValue("showPass",!values.showPass)}
-
-                   >
-                       <Image 
-                            source = {!values.showPass ? icons.eye_close:icons.eye}
-                            style={{
+                    >
+                        <Image 
+                            source={values.country==""||(values.country!=""&& typeof errors.country == 'undefined')? icons.correct:icons.cross} 
+                            style = {{
                                 height:20,
                                 width:20,
-                                tintColor:COLORS.gray
+                                tintColor:values.country==""?COLORS.gray : (values.country!=""&& typeof errors.country == 'undefined')? COLORS.green: COLORS.red
                             }}
-                       />
-                   </TouchableOpacity> 
+                            />
+                    </View>
                 }
+            
             />
+               <FormInput 
+                label="Zip"
+                keyboardType = "default"
+                autoCompleteType = "username"
+                onChangeText = {handleChange("zip")}
+                errorMsg= {errors.zip}
+                appendComponent={
+                    <View
+                        style={{
+                            justifyContent:'center'
+                        }}
+                    >
+                        <Image 
+                            source={values.zip==""||(values.zip!=""&& typeof errors.zip == 'undefined')? icons.correct:icons.cross} 
+                            style = {{
+                                height:20,
+                                width:20,
+                                tintColor:values.zip==""?COLORS.gray : (values.zip!=""&& typeof errors.zip == 'undefined')? COLORS.green: COLORS.red
+                            }}
+                            />
+                    </View>
+                }
+            
+            />
+        
 
                 {/* Sign up & Sign In */}
 
                 <AuthTextButton
-                    label="Save"
+                    label="Next"
                     // disabled ={isEnabledSignUp()?false:true}
                     buttonContainerStyle={{
                         height:55,
@@ -427,7 +431,11 @@ const Profile = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) =
 
 function mapStateToProps(state){
     return {
-        selectedTab:state.tabReducer.selectedTab
+        selectedTab:state.tabReducer.selectedTab,
+        username:state.customerReducer.username,
+        lastname:state.customerReducer.lastname,
+        mobile:state.customerReducer.mobile,
+        address:state.customerReducer.address
     }
 }
 
@@ -435,6 +443,22 @@ function mapDispatchToProps(dispatch){
     return{
         setSelectedTab:(selectedTab)=>{return dispatch
             (setSelectedTab(selectedTab))
+
+        },
+        setUsername:(username)=>{return dispatch
+            (setUsername(username))
+
+        },
+        setLastname:(lastname)=>{return dispatch
+            (setLastname(lastname))
+
+        },
+        setMobile:(mobile)=>{return dispatch
+            (setMobile(mobile))
+
+        },
+        setAddress:(address)=>{return dispatch
+            (setAddress(address))
 
         }
     }

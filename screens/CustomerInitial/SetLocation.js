@@ -18,8 +18,10 @@ import MapView, { Marker } from 'react-native-maps';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Layout from './Layout'
+import { setMapCoords } from '../../stores/customer/customerActions';
 
-const SetLocation = ({userType,navigation}) => {
+
+const SetLocation = ({userType,navigation,setMapCoords}) => {
 
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
@@ -42,6 +44,8 @@ const SetLocation = ({userType,navigation}) => {
         let location = await Location.getCurrentPositionAsync({});
         setLocation(location.coords);
         setMapRegion({latitude:location.coords.latitude,longitude:location.coords.longitude,latitudeDelta:location.coords.latitude/2,longitudeDelta: location.coords.longitude/2})
+        setMapCoords(mapRegion)
+        console.log(mapRegion)
         mapView.current.animateToRegion({latitude:location.coords.latitude,longitude:location.coords.longitude,latitudeDelta:0.015,longitudeDelta: 0.015},2000)
     }
 
@@ -117,7 +121,25 @@ const SetLocation = ({userType,navigation}) => {
     )
 }
 
-export default SetLocation
+function mapStateToProps(state){
+    return {
+        mapCoords:state.customerReducer.mapRegion,
+      
+   
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return{
+        setMapCoords:(mapCoords)=>{return dispatch
+            (setMapCoords(mapCoords))
+
+        },
+     
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SetLocation)
 const styles = StyleSheet.create({
    locationContainer:{
        elevation:3,

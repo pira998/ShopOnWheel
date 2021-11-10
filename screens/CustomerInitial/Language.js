@@ -16,8 +16,9 @@ import {COLORS,SIZES,FONTS,icons} from '../../constants'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Layout from './Layout'
+import { setLanguage } from '../../stores/customer/customerActions';
 
-const CustomerLanguage = ({userType,navigation}) => {
+const CustomerLanguage = ({userType,navigation,setLanguage}) => {
    
     const LoginSchema = Yup.object().shape({
    
@@ -36,6 +37,7 @@ const CustomerLanguage = ({userType,navigation}) => {
     validationSchema: LoginSchema,
     initialValues: { language:"" },
     onSubmit: async (values) => {
+        setLanguage(values.language)
         navigation.navigate('CustomerPaymentOption')
     }})
     function isLanguageSelected(){
@@ -124,8 +126,23 @@ const CustomerLanguage = ({userType,navigation}) => {
        </Layout>
     )
 }
+function mapStateToProps(state){
+    return {
+        language:state.customerReducer.language,
+    }
+}
 
-export default CustomerLanguage
+function mapDispatchToProps(dispatch){
+    return{
+        setLanguage:(language)=>{return dispatch
+            (setLanguage(language))
+
+        },
+       
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CustomerLanguage)
 
 const styles = StyleSheet.create({
    language:{

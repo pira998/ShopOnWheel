@@ -6,7 +6,8 @@ const initialState ={
     username: '', 
     mobile: '', 
     lastname: "",
-    mapRegion:null,
+    mapCoords:null,
+    address:null
 
     
 }
@@ -21,7 +22,7 @@ const customerReducer =(state =initialState,action) =>{
         case customerActionTypes.SET_CUSTOMER_PAYMENT_METHOD:
             return {
                 ...state,
-                language:action.payload.language
+                paymentMethod:action.payload.paymentMethod
             }
         case customerActionTypes.SET_CUSTOMER_USERNAME:
             return {
@@ -38,10 +39,15 @@ const customerReducer =(state =initialState,action) =>{
                 ...state,
                 mobile:action.payload.mobile
             }
-        case customerActionTypes.SET_CUSTOMER_MAP_REGION:
+        case customerActionTypes.SET_CUSTOMER_MAP_COORDS:
             return {
                 ...state,
-                map_region:action.payload.map_region
+                mapCoords:action.payload.mapCoords
+            }
+        case customerActionTypes.SET_CUSTOMER_ADDRESS:
+            return {
+                ...state,
+                address:action.payload.address
             }
         default:
             return state

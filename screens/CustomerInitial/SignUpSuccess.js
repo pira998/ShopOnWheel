@@ -16,9 +16,26 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Layout from './Layout'
 
-const SignUpSuccess = ({userType,navigation}) => {
+import "firebase/firestore";
+import { gql, useQuery,useMutation } from '@apollo/client';
 
 
+const UPDATE_PROFILE = gql`
+mutation updateProfile($input:ProfileInput!) {
+      updateUserProfile (input:$input) 
+  }
+
+`;
+
+
+
+const SignUpSuccess = ({navigation,username,lastname,mapCoords,paymentMethod,language,mobile,address}) => {
+
+    const currentUser = firebase.auth().currentUser;
+    const [updateProfile, { data, loading, error }] = useMutation(UPDATE_PROFILE);
+    console.log({
+        currentUser
+    })
     return (
        <Layout>
              <View 
@@ -53,7 +70,29 @@ const SignUpSuccess = ({userType,navigation}) => {
                     borderRadius:SIZES.radius,
                     backgroundColor: COLORS.primary
                 }}
-               onPress={()=>navigation.navigate('Home')}
+               onPress={()=>{
+                    updateProfile({variables:{ input: {
+                                "mobile": mobile,
+                                "address":{
+                                    "zip": address.zip,
+                                    "city": address.city,
+                                    "country": address.country,
+                                    "street": address.street,
+                                    "houseNo": address.houseNo
+                                },
+                                "language": language,
+                                "lastname": lastname,
+                                "username": username,
+                                "cards": [],
+                                "location":{
+                                    "Latitude": mapCoords.latitude,
+                                    "Longitude":mapCoords.longitude
+                                },
+                                "paymentMethod":paymentMethod,
+                                "id":currentUser.uid
+                                
+                    }}})   
+                navigation.navigate('MainLayout')}}
 
             >
 
@@ -70,8 +109,21 @@ const SignUpSuccess = ({userType,navigation}) => {
     )
 }
 
-export default SignUpSuccess
+function mapStateToProps(state){
+    return {
+        username:state.customerReducer.username,
+        lastname:state.customerReducer.lastname,
+        mobile:state.customerReducer.mobile,
+        language:state.customerReducer.language,
+        mapCoords:state.customerReducer.mapCoords,
+        paymentMethod:state.customerReducer.paymentMethod,
+        address:state.customerReducer.address
 
+    }
+}
+
+
+export default connect(mapStateToProps)(SignUpSuccess)
 const styles = StyleSheet.create({
     congrats:{
         fontFamily:'Poppins-Bold',

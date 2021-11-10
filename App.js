@@ -102,7 +102,7 @@ const App = () => {
 
        
         <Provider store={store}>
-          
+      
         <NavigationContainer>
             <Stack.Navigator
                 screenOptions={{
@@ -112,7 +112,7 @@ const App = () => {
             >
                 <Stack.Screen
                     name="Home"
-                    component={user ? vendorDrawer :Welcome}
+                    component={user ? CustomDrawer :Welcome}
                 />
                 <Stack.Screen
                     name="Welcome"

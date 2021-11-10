@@ -18,7 +18,7 @@ import { setUsername,setLastname,setMobile } from '../../stores/customer/custome
 
 
 
-const UserBio = ({userType,navigation}) => {
+const UserBio = ({userType,navigation,username}) => {
     
     
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -44,7 +44,9 @@ const UserBio = ({userType,navigation}) => {
     validationSchema: LoginSchema,
     initialValues: { username: '', mobile: '', lastname: "",address: "" },
     onSubmit: async (values) => {
-        
+        setUsername(values.username)
+        setLastname(values.lastname)
+        setMobile(values.mobile)
         navigation.navigate('CustomerLanguage')
     }})
     function isFormFilled(){
@@ -197,9 +199,9 @@ const UserBio = ({userType,navigation}) => {
 
 function mapStateToProps(state){
     return {
-        username:state.tabReducer.username,
-        lastname:state.tabReducer.lastname,
-        mobile:state.tabReducer.mobile
+        username:state.customerReducer.username,
+        lastname:state.customerReducer.lastname,
+        mobile:state.customerReducer.mobile
     }
 }
 

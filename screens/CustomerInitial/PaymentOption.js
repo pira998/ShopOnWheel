@@ -16,8 +16,9 @@ import {COLORS,SIZES,FONTS,icons} from '../../constants'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Layout from './Layout'
+import { setPaymentMethod } from '../../stores/customer/customerActions';
 
-const CustomerPaymentOption = ({userType,navigation}) => {
+const CustomerPaymentOption = ({userType,navigation,setPaymentMethod}) => {
    
     const LoginSchema = Yup.object().shape({
    
@@ -36,6 +37,7 @@ const CustomerPaymentOption = ({userType,navigation}) => {
     validationSchema: LoginSchema,
     initialValues: { paymentMethod:"" },
     onSubmit: async (values) => {
+        setPaymentMethod(values.paymentMethod)
         navigation.navigate('CustomerSetLocation')
     }})
     function isPaymentMethodSelected(){
@@ -124,8 +126,24 @@ const CustomerPaymentOption = ({userType,navigation}) => {
        </Layout>
     )
 }
+function mapStateToProps(state){
+    return {
+        paymentMethod:state.customerReducer.paymentMethod,
+    
+    }
+}
 
-export default CustomerPaymentOption
+function mapDispatchToProps(dispatch){
+    return{
+        setPaymentMethod:(paymentMethod)=>{return dispatch
+            (setPaymentMethod(paymentMethod))
+
+        },
+
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CustomerPaymentOption)
 
 const styles = StyleSheet.create({
    paymentMethod:{
