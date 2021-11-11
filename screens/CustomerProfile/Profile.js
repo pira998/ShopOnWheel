@@ -75,7 +75,7 @@ const Profile = ({drawerAnimationStyle,navigation,setUsername,setLastname,setMob
         password: '123456', 
         remember: false ,
         showPass:false, 
-        username: 'praveen', 
+        username: 'user', 
         mobile: '0769618638', 
         lastname: "sivakumar",
         houseNo:12,
@@ -192,7 +192,7 @@ const Profile = ({drawerAnimationStyle,navigation,setUsername,setLastname,setMob
                                       </Text>
                                     </TouchableOpacity>
                                     <Text style={styles.username} >
-                                        Hi there Praveen
+                                        Hi there {values.username}
                                      </Text>
                                      
                 </View>

@@ -1,21 +1,49 @@
 //components
 import {HorizontalFoodCard,VerticalFoodCard} from '../../components'
 import FilterModal from '../Home/FilterModal';
-
+import { connect } from 'react-redux';
 import React from 'react';
 import {
     View,
     Text,TouchableOpacity,Image,TextInput,FlatList
 } from 'react-native';
-
+import * as firebase from 'firebase'
 import { FONTS,SIZES,COLORS,icons,images } from '../../constants';
 import dummyData from '../../constants/dummyData';
+import { gql, useQuery,useMutation } from '@apollo/client';
+import { setAddress } from '../../stores/customer/customerActions';
 
 
 const affordable = 1
 const fairPrice = 2
 const expensive = 3
 
+const GET_CUSTOMER_DETAILS_BY_ID = gql`
+ query getUserById($id: ID!) {
+    user(id: $id) {
+      id
+      address{
+          city
+          country
+          houseNo
+          street
+          zip
+      } 
+      createAt
+      email
+      language
+      lastname
+      location{
+          Latitude
+          Longitude
+      }
+      mobile
+      paymentMethod
+      username
+    }
+  }
+
+`
 
 const restaurantData = [
         {
@@ -358,7 +386,7 @@ const Section =({title,onPress,children}) =>{
 }
 
 //
-const Home = ({navigation,params}) => {
+const Home = ({navigation,params,setAddress}) => {
 
     // for select items to display
     const [selectedCategoryId,setSelectedCategoryId] = React.useState(1);
@@ -375,8 +403,27 @@ const Home = ({navigation,params}) => {
     React.useEffect(()=>{
         handleChangeCategory(selectedCategoryId,selectedMenuType)
     },[])
-
+     const currentUser = firebase.auth().currentUser;
+    const id = currentUser.uid
+    const {loading,error,data} = useQuery(GET_CUSTOMER_DETAILS_BY_ID,{
+      variables:{
+          id
+      } 
+    }) 
+     console.log(error)
+    let address = {
+        street:'senior lane',
+        zip:'40000',
+        houseNo:'14',
+        city:'jaffna',
+        country:'sri lanka'
+    }
     //handler
+    if (data){
+       address = data.user.address
+    }
+
+    setAddress(address)
 
     function handleChangeCategory(categoryId,menutypeId){
         // Retrive the recommend menu
@@ -595,7 +642,7 @@ function renderMenuTypes(){
             />
         )
     }
-
+    
 
     function renderDeliveryTo(){
         return(
@@ -613,7 +660,7 @@ function renderMenuTypes(){
                     marginTop:SIZES.base,
                     alignItems:'center'
                 }}>
-                    <Text style={{...FONTS.h3}}>{dummyData?.myProfile?.address}</Text>
+                    <Text style={{...FONTS.h3}}>No { address.houseNo} , {address.street}, {address.city}, {address.country} , {address.zip}  </Text>
                     <Image
                     source={icons.down_arrow}
                     style={{
@@ -696,8 +743,20 @@ function renderMenuTypes(){
             }
             />
 
+
         </View>
     )
 }
 
-export default Home;
+
+function mapDispatchToProps(dispatch){
+    return{
+        setAddress:(address)=>{return dispatch
+            (setAddress(address))
+
+        }
+    }
+}
+
+export default connect(null,mapDispatchToProps)(Home)
+// export default Home

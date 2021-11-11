@@ -5,6 +5,8 @@ export const SET_CUSTOMER_PAYMENT_METHOD = 'SET_CUSTOMER_PAYMENT_METHOD'
 export const SET_CUSTOMER_MAP_COORDS = 'SET_CUSTOMER_MAP_COORDS'
 export const SET_CUSTOMER_LANGUAGE = 'SET_CUSTOMER_LANGUAGE'
 export const SET_CUSTOMER_ADDRESS = 'SET_CUSTOMER_ADDRESS'
+export const SET_CUSTOMER_CART = 'SET_CUSTOMER_CART'
+
 
 export const setUsernameSuccess =(username) =>({
     type:SET_CUSTOMER_USERNAME,
@@ -81,6 +83,19 @@ export function setAddress(address){
         dispatch(setAddressSuccess(address))
     }
 }
+
+export const setCartSuccess =(cart) =>({
+    type:SET_CUSTOMER_CART,
+    payload:{cart}
+})
+
+export function setCart(cart){
+    return dispatch =>{
+        dispatch(setCartSuccess(cart))
+    }
+}
+
+
 
 
 

@@ -27,8 +27,8 @@ export async function customerRegistration(email, password) {
         language:'',
         lastname:'',
         location:{
-          Latitude:"",
-          Longitude:''
+          Latitude:0.0,
+          Longitude:0.0
         },
         mobile:"",
         paymentMethod:'',

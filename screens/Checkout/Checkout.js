@@ -33,6 +33,14 @@ import { PaymentsStripe as Stripe } from 'expo-payments-stripe';
 import { gql, useQuery,useMutation } from '@apollo/client';
 
 
+const CREATE_ORDER = gql`
+mutation createOrder($in:OrderInput!) {
+  createOrder(input:$in){
+    paymentMethod
+  }
+}
+
+`;
 const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,route}) => {
     Stripe.setOptionsAsync({
       publishableKey: 'pk_test_51JdT8ABTMX0TxwgtXlHJAxwxmtoFJUpTiaVzzZrv4rr2nqYiDfQCU3U0gvboYh1y9afya3YWpDkEcdbSiqBHN83l00b5x14DHi', // Your key
@@ -46,8 +54,11 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
     `)
 
     // const totalPrice = route.params.totalPrice
+
     const address = route.params.address
     const amount = route.params.totalPrice
+    const items = route.params.items
+    const [createOrder, { data, loading, error }] = useMutation(CREATE_ORDER);
     const [tokenId,setTokenId] = React.useState('')
     const [params, setParams ] = React.useState({
         number: '4242424242424242',
@@ -94,7 +105,25 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
             addressCountry: address.country,
             addressZip: address.zipCode,
         })
+        const order = {
+            customerId: '',
+            deliveryCharge:'',
+            discount:'',
+            items:[],
+            paymentMethod:'visa',
+            status:'',
+            subTotal:0,
+            totalCount:4,
+            totalPrice:2331,
+            transactionId:23,
+            vendorId:''
+        }
         completePaymentWithStripe({ variables: {amount:amount*100,currency: "usd", token:tokenId } })
+        createOrder({
+            variables:{
+                customerId:'',
+            }
+        })
         navigation.navigate("OrderSuccess")
 
     } 
@@ -104,9 +133,6 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
         // console.log(tokenId)
 
 
-  function isEnabledSignUp(){
-        return values.email != "" && values.password != "" && typeof errors.email == 'undefined'
-    }
 
     return (
         <Animated.View
@@ -162,7 +188,6 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
             }
             />
       <KeyboardAwareScrollView
-          
           style={styles.avoider}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >

@@ -82,7 +82,7 @@ const TabButton =({label,icon,isFocused,onPress,outerContainerStyle,innerContain
 }
 
 const MainLayout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab}) => {
-
+    
     //Flat list ref for Content Section
     const flatListRef =React.useRef();
      //For footer animations

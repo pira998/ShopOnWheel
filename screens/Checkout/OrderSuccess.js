@@ -17,8 +17,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Layout from './Layout'
 
-const OrderSuccess = ({userType,navigation}) => {
-
+const OrderSuccess = ({userType,navigation,route}) => {
+    
 
     return (
        <Layout>

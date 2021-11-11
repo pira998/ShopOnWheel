@@ -7,7 +7,8 @@ const initialState ={
     mobile: '', 
     lastname: "",
     mapCoords:null,
-    address:null
+    address:null,
+    cart:null,
 
     
 }
@@ -48,6 +49,11 @@ const customerReducer =(state =initialState,action) =>{
             return {
                 ...state,
                 address:action.payload.address
+            }
+        case customerActionTypes.SET_CUSTOMER_CARTbottom:
+            return {
+                ...state,
+                 cart:action.payload.cart
             }
         default:
             return state

@@ -413,11 +413,13 @@ const Restaurant = ({route,drawerAnimationStyle,navigation,selectedTab,setSelect
                                 alignItems: 'center',
                                 borderRadius: SIZES.radius
                             }}
-                            onPress={() => navigation.navigate("CartDetails", {
+                            onPress={() => {navigation.navigate("CartDetails", {
                                 // restaurant: restaurant,
                                 orderItems:orderItems,
                                 currentLocation: currentLocation
-                            })}
+                            });
+                            setOrderItems([])
+                        }}
                         >
                             <Text style={{ color: COLORS.white, ...FONTS.h2 }}>Order</Text>
                         </TouchableOpacity>

@@ -52,7 +52,7 @@ const Drawer = createDrawerNavigator();
 
 const CustomDrawerItem =({lable,icon,isFocused,onPress}) =>{
 
-
+  
     return (
         <TouchableOpacity
         style={{
@@ -96,6 +96,8 @@ const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
          
         }
     })
+    
+    const currentUser = firebase.auth().currentUser;
     return(
         <DrawerContentScrollView 
         scrollEnabled={true}
@@ -155,7 +157,7 @@ const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
                     <View style={{
                         marginLeft:SIZES.radius
                     }}>
-                        <Text style={{color:COLORS.white, ...FONTS.h3}}>{console.log(data)}</Text>
+                        <Text style={{color:COLORS.white, ...FONTS.h3}}>{currentUser.email}</Text>
                         <Text style={{color:COLORS.white, ...FONTS.body4}}>View Profile</Text>
                     </View>
 
@@ -258,7 +260,7 @@ const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
     )
 }
 
-const CustomDrawer=({selectedTab,setSelectedTab})=>{
+const CustomDrawer=({navigation,selectedTab,setSelectedTab})=>{
     const [progress,setProgress] = React.useState(new Animated.Value(0));
     const [loading, setLoading] = React.useState(true);
     const [initializing, setInitializing] = React.useState(true);
@@ -312,7 +314,7 @@ const CustomDrawer=({selectedTab,setSelectedTab})=>{
                  backgroundColor:'transparent'
              }}
 
-             initialRouteName="MainLayout"
+             initialRouteName="Home"
              drawerContent={props =>{
                  setTimeout(()=>{
                     setProgress(props.progress)

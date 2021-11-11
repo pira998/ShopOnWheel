@@ -46,7 +46,7 @@ const GET_ALL_PRODUCTS = gql`
 `
 const window = Dimensions.get('window');
 const screen = Dimensions.get('screen');
-const Cart = ({drawerAnimationStyle,navigation,route}) => {
+const Cart = ({drawerAnimationStyle,navigation,route,address}) => {
   //  const [products,setProducts]= React.useState({})
   //  const {loading,error,data} = useQuery(GET_ALL_PRODUCTS,{
   //       onCompleted:(data) =>{
@@ -245,8 +245,11 @@ const Cart = ({drawerAnimationStyle,navigation,route}) => {
                     backgroundColor: COLORS.primary
                 }}
                onPress={(e)=>{navigation.navigate('AddressConfirm',{
-                   totalPrice
-               })}}
+                   totalPrice,
+                   items
+               })
+               setItems([])
+            }}
 
             >
 
@@ -271,16 +274,18 @@ const Cart = ({drawerAnimationStyle,navigation,route}) => {
 }
 
 
+
 function mapStateToProps(state){
     return {
-        selectedTab:state.tabReducer.selectedTab
+        address:state.customerReducer.address,
+      
     }
 }
 
 function mapDispatchToProps(dispatch){
     return{
-        setSelectedTab:(selectedTab)=>{return dispatch
-            (setSelectedTab(selectedTab))
+        setAddress:(address)=>{return dispatch
+            (setAddress(address))
 
         }
     }

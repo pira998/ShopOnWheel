@@ -27,6 +27,8 @@ import * as Yup from 'yup';
 
 const AddressConfirm = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,route}) => {
     const totalPrice = route.params.totalPrice
+    const items = route.params.items
+
      const LoginSchema = Yup.object().shape({
    
     useDefaultAddress: Yup.boolean(),
@@ -35,7 +37,7 @@ const AddressConfirm = ({drawerAnimationStyle,navigation,selectedTab,setSelected
 
     });
     const [address,setAddress] = React.useState({street:"Thatta Theru K.K.Road",houseNo:"",zipCode:"40000",city:"Jaffna",country:'Sri Lanka'})
-
+   
     const {
     handleChange,
     handleBlur,
@@ -55,7 +57,7 @@ const AddressConfirm = ({drawerAnimationStyle,navigation,selectedTab,setSelected
             city:values.city,
             country:values.country
         })
-         values.cashOnDelivery? navigation.navigate('OrderSuccess'):navigation.navigate('Checkout',{address,totalPrice}) 
+         values.cashOnDelivery? navigation.navigate('OrderSuccess'):navigation.navigate('Checkout',{address,totalPrice,items}) 
     }})
     function isuseDefaultAddressSelected(){
         
