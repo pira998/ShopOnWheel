@@ -165,6 +165,7 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
             transactionId:23,
             vendorId:''
         }
+        createToken()
         completePaymentWithStripe({ variables: {amount:amount*100,currency: "usd", token:tokenId } })
         createOrder({
             variables:{
@@ -186,8 +187,9 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
 
     } 
 
-
-        const token =  Stripe.createTokenWithCardAsync(params).then(response=> setTokenId(response.tokenId) )
+    const createToken=()=>{
+        return Stripe.createTokenWithCardAsync(params).then(response=> setTokenId(response.tokenId) )
+    }
         // console.log(tokenId)
 
 

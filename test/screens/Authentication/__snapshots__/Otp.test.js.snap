@@ -1,0 +1,427 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#FFFFFF",
+      "flex": 1,
+      "paddingVertical": 24,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+      }
+    }
+  >
+    <Image
+      resizeMode="contain"
+      source={1}
+      style={
+        Object {
+          "height": 100,
+          "width": 200,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "marginTop": 48,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontFamily": "Poppins-Bold",
+          "fontSize": 22,
+          "lineHeight": 30,
+          "textAlign": "center",
+        }
+      }
+    >
+      OTP Authentication
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#525C67",
+          "fontFamily": "Poppins-Regular",
+          "fontSize": 16,
+          "lineHeight": 22,
+          "marginTop": 8,
+          "textAlign": "center",
+        }
+      }
+    >
+      An authentication code has been sent to veensiva10@gmail.com
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "marginTop": 48,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "height": 50,
+          "width": "100%",
+        }
+      }
+      testID="OTPInputView"
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "height": "100%",
+            "justifyContent": "space-between",
+            "width": "100%",
+          }
+        }
+      >
+        <View
+          pointerEvents="none"
+          testID="inputSlotView"
+        >
+          <TextInput
+            allowFontScaling={true}
+            editable={true}
+            keyboardAppearance="default"
+            keyboardType="number-pad"
+            onChangeText={[Function]}
+            onKeyPress={[Function]}
+            placeholder=""
+            placeholderTextColor="#000000"
+            rejectResponderTermination={true}
+            secureTextEntry={false}
+            selectionColor="#000"
+            style={
+              Array [
+                Object {
+                  "borderColor": "rgba(226, 226, 226, 1)",
+                  "borderRadius": 2,
+                  "borderWidth": 1,
+                  "color": "rgba(226, 226, 226, 1)",
+                  "height": 45,
+                  "textAlign": "center",
+                  "width": 45,
+                },
+                Object {
+                  "backgroundColor": "#F5F5F8",
+                  "borderRadius": 12,
+                  "color": "#000000",
+                  "fontFamily": "sans-serif",
+                  "fontSize": 16,
+                  "height": 65,
+                  "lineHeight": 22,
+                  "width": 65,
+                },
+                undefined,
+              ]
+            }
+            testID="textInput"
+            textContentType="none"
+            underlineColorAndroid="rgba(0,0,0,0)"
+          />
+        </View>
+        <View
+          pointerEvents="none"
+          testID="inputSlotView"
+        >
+          <TextInput
+            allowFontScaling={true}
+            editable={true}
+            keyboardAppearance="default"
+            keyboardType="number-pad"
+            onChangeText={[Function]}
+            onKeyPress={[Function]}
+            placeholder=""
+            placeholderTextColor="#000000"
+            rejectResponderTermination={true}
+            secureTextEntry={false}
+            selectionColor="#000"
+            style={
+              Array [
+                Object {
+                  "borderColor": "rgba(226, 226, 226, 1)",
+                  "borderRadius": 2,
+                  "borderWidth": 1,
+                  "color": "rgba(226, 226, 226, 1)",
+                  "height": 45,
+                  "textAlign": "center",
+                  "width": 45,
+                },
+                Object {
+                  "backgroundColor": "#F5F5F8",
+                  "borderRadius": 12,
+                  "color": "#000000",
+                  "fontFamily": "sans-serif",
+                  "fontSize": 16,
+                  "height": 65,
+                  "lineHeight": 22,
+                  "width": 65,
+                },
+              ]
+            }
+            testID="textInput"
+            textContentType="none"
+            underlineColorAndroid="rgba(0,0,0,0)"
+          />
+        </View>
+        <View
+          pointerEvents="none"
+          testID="inputSlotView"
+        >
+          <TextInput
+            allowFontScaling={true}
+            editable={true}
+            keyboardAppearance="default"
+            keyboardType="number-pad"
+            onChangeText={[Function]}
+            onKeyPress={[Function]}
+            placeholder=""
+            placeholderTextColor="#000000"
+            rejectResponderTermination={true}
+            secureTextEntry={false}
+            selectionColor="#000"
+            style={
+              Array [
+                Object {
+                  "borderColor": "rgba(226, 226, 226, 1)",
+                  "borderRadius": 2,
+                  "borderWidth": 1,
+                  "color": "rgba(226, 226, 226, 1)",
+                  "height": 45,
+                  "textAlign": "center",
+                  "width": 45,
+                },
+                Object {
+                  "backgroundColor": "#F5F5F8",
+                  "borderRadius": 12,
+                  "color": "#000000",
+                  "fontFamily": "sans-serif",
+                  "fontSize": 16,
+                  "height": 65,
+                  "lineHeight": 22,
+                  "width": 65,
+                },
+              ]
+            }
+            testID="textInput"
+            textContentType="none"
+            underlineColorAndroid="rgba(0,0,0,0)"
+          />
+        </View>
+        <View
+          pointerEvents="none"
+          testID="inputSlotView"
+        >
+          <TextInput
+            allowFontScaling={true}
+            editable={true}
+            keyboardAppearance="default"
+            keyboardType="number-pad"
+            onChangeText={[Function]}
+            onKeyPress={[Function]}
+            placeholder=""
+            placeholderTextColor="#000000"
+            rejectResponderTermination={true}
+            secureTextEntry={false}
+            selectionColor="#000"
+            style={
+              Array [
+                Object {
+                  "borderColor": "rgba(226, 226, 226, 1)",
+                  "borderRadius": 2,
+                  "borderWidth": 1,
+                  "color": "rgba(226, 226, 226, 1)",
+                  "height": 45,
+                  "textAlign": "center",
+                  "width": 45,
+                },
+                Object {
+                  "backgroundColor": "#F5F5F8",
+                  "borderRadius": 12,
+                  "color": "#000000",
+                  "fontFamily": "sans-serif",
+                  "fontSize": 16,
+                  "height": 65,
+                  "lineHeight": 22,
+                  "width": 65,
+                },
+              ]
+            }
+            testID="textInput"
+            textContentType="none"
+            underlineColorAndroid="rgba(0,0,0,0)"
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginTop": 24,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#525C67",
+            "fontFamily": "Poppins-Regular",
+            "fontSize": 16,
+            "lineHeight": 22,
+          }
+        }
+      >
+        Didn't receive code
+      </Text>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": null,
+            "justifyContent": "center",
+            "marginLeft": 8,
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "#FF6C44",
+              "fontFamily": "sans-serif",
+              "fontSize": 16,
+              "lineHeight": 22,
+            }
+          }
+        >
+          Resend (60s)
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#FF6C44",
+          "borderRadius": 12,
+          "height": 50,
+          "justifyContent": "center",
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FFFFFF",
+            "fontFamily": "sans-serif",
+            "fontSize": 16,
+            "lineHeight": 22,
+          }
+        }
+      >
+        Continue
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "marginTop": 24,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#525C67",
+            "fontFamily": "Poppins-Regular",
+            "fontSize": 16,
+            "lineHeight": 22,
+          }
+        }
+      >
+        By signing up, you agree to our,
+      </Text>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": null,
+            "justifyContent": "center",
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "#FF6C44",
+              "fontFamily": "Poppins-Regular",
+              "fontSize": 16,
+              "lineHeight": 22,
+            }
+          }
+        >
+          Terms and Conditions
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

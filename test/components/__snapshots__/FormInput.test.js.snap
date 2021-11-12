@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={Object {}}
+>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#898B9A",
+          "fontFamily": "sans-serif",
+          "fontSize": 14,
+          "lineHeight": 22,
+        }
+      }
+    />
+    <Text
+      style={
+        Object {
+          "color": "#FF1717",
+          "fontFamily": "sans-serif",
+          "fontSize": 14,
+          "lineHeight": 22,
+        }
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#F5F5F8",
+        "borderRadius": 12,
+        "flexDirection": "row",
+        "height": 55,
+        "marginTop": 8,
+        "paddingHorizontal": 24,
+      }
+    }
+  >
+    <TextInput
+      allowFontScaling={true}
+      autoCapitalize="none"
+      autoCompleteType="off"
+      keyboardType="default"
+      placeholderTextColor="#898B9A"
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+      underlineColorAndroid="transparent"
+    />
+  </View>
+</View>
+`;

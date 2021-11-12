@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#FFFFFF",
+      "flex": 1,
+      "paddingVertical": 24,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+      }
+    }
+  >
+    <Image
+      resizeMode="contain"
+      source={1}
+      style={
+        Object {
+          "height": 100,
+          "width": 200,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "marginTop": -14,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontFamily": "Poppins-Bold",
+          "fontSize": 22,
+          "lineHeight": 30,
+          "textAlign": "center",
+        }
+      }
+    />
+    <Text
+      style={
+        Object {
+          "color": "#525C67",
+          "fontFamily": "Poppins-Regular",
+          "fontSize": 16,
+          "lineHeight": 22,
+          "marginTop": 8,
+          "textAlign": "center",
+        }
+      }
+    />
+  </View>
+</View>
+`;
