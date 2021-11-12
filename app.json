@@ -23,13 +23,13 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.jpg",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.pira123.ShopOnWheel"
     },
     "web": {
       "favicon": "./assets/verified.png"
     },
-    "plugins": [
-    
-    ]
+    "plugins": [],
+    "description": ""
   }
 }

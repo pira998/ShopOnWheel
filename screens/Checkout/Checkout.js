@@ -76,6 +76,8 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
     const [products, setProducts] = useState([])
     const [order, setOrder] = useState([])
     const [vendorId, setVendorId] = useState('')
+    const [createOrder, { ___data }] = useMutation(CREATE_ORDER);
+
     useEffect(() => {
         if (data){
         setProducts(data.products)
@@ -92,6 +94,7 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
             }
          })
          })
+          
         //   console.log(order)
     }, [])
   
@@ -103,7 +106,6 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
     const address = route.params.address
     const amount = route.params.totalPrice
    
-    const [createOrder, { ___data }] = useMutation(CREATE_ORDER);
     const [tokenId,setTokenId] = React.useState('')
     const [params, setParams ] = React.useState({
         number: '4242424242424242',
@@ -156,39 +158,57 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
             discount:'',
             items:[],
             paymentMethod:'visa',
-            status:'',
+        
             subTotal:0,
             totalCount:4,
             totalPrice:2331,
-            transactionId:23,
+           
             vendorId:''
         }
-       
-        completePaymentWithStripe({ variables: {amount:amount*100,currency: "usd", token:tokenId } })
         createOrder({
             variables:{
                input:{
                 "customerId":currentUser.uid,
-                "deliveryCharge":0,
-                "discount":0,
-                "items":order,
+                "deliveryCharge":0.0,
+                "discount":0.0,
+                "items":[],
                 "paymentMethod":paymentMethod,
-                "status":'pending',
-                "subTotal":amount,
+                
+                "subTotal":amount.toFixed(2),
                 "totalCount":4,
-                "totalPrice":amount,
-                "transactionId":232,
+                "totalPrice":amount.toFixed(2),
+              
                 "vendorId":vendorId
 
                }
             }
         })
+       
+        completePaymentWithStripe({ variables: {amount:amount*100,currency: "usd", token:tokenId } })
+        // createOrder({
+        //     variables:{
+        //        input:{
+        //         "customerId":currentUser.uid,
+        //         "deliveryCharge":0,
+        //         "discount":0,
+        //         "items":order,
+        //         "paymentMethod":paymentMethod,
+        //         "status":'pending',
+        //         "subTotal":amount,
+        //         "totalCount":4,
+        //         "totalPrice":amount,
+        //         "transactionId":232,
+        //         "vendorId":vendorId
+
+        //        }
+        //     }
+        // })
         navigation.navigate("OrderSuccess")
 
     } 
 
     Stripe.createTokenWithCardAsync(params).then(response=> setTokenId(response.tokenId) )  
-        console.log(tokenId)
+        // console.log(tokenId)
 
 
 

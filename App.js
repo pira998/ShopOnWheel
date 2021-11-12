@@ -112,7 +112,7 @@ const App = () => {
             >
                 <Stack.Screen
                     name="Home"
-                    component={user ? CustomDrawer :Welcome}
+                    component={user && store.getState().userReducer.userType =="customer" ? CustomDrawer : user  && store.getState().userReducer.userType =="vendor" ? vendorDrawer :Welcome}
                 />
                 <Stack.Screen
                     name="Welcome"

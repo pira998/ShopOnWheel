@@ -14,7 +14,11 @@ import { gql, useQuery,useMutation } from '@apollo/client';
 import { setAddress } from '../../stores/customer/customerActions';
 
 
-
+const CREATE_ORDER = gql`
+mutation createOrder($input:OrderInput!) {
+  createOrder(input:$input)
+}
+`;
 
 const GET_CUSTOMER_DETAILS_BY_ID = gql`
  query getUserById($id: ID!) {
@@ -71,6 +75,7 @@ const Section =({title,onPress,children}) =>{
 
 //
 const Home = ({navigation,params,setAddress}) => {
+const [createOrder, {data1,loading1,error1 }] = useMutation(CREATE_ORDER);
 
     // for select items to display
     const [selectedCategoryId,setSelectedCategoryId] = React.useState(1);
@@ -94,6 +99,26 @@ const Home = ({navigation,params,setAddress}) => {
           id
       } 
     }) 
+    //  createOrder({
+    //         variables:{
+    //            input:{
+    //             "customerId":currentUser.uid,
+    //             "deliveryCharge":0.0,
+    //             "discount":0.0,
+    //             "items":[],
+    //             "paymentMethod":"paymentMethod",
+              
+    //             "subTotal":211.0,
+    //             "totalCount":4,
+    //             "totalPrice":2121.0,
+                
+    //             "vendorId":"nlHJgpJ1VOTzavS27nSN"
+
+    //            }
+    //         }
+    //     })
+
+    //     console.log(error1)
     let address = {
         street:'senior lane',
         zip:'40000',
@@ -105,6 +130,7 @@ const Home = ({navigation,params,setAddress}) => {
     if (data){
        address = data.user.address
     }
+   
 
     setAddress(address)
 
