@@ -1,7 +1,7 @@
 //components
 import { Header } from '../../components';
 
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {
     View,
     Text,
@@ -31,7 +31,7 @@ import LottieView from 'lottie-react-native'
 import CreditCardForm, { Button, FormModel } from 'rn-credit-card'
 import { PaymentsStripe as Stripe } from 'expo-payments-stripe';
 import { gql, useQuery,useMutation } from '@apollo/client';
-
+import * as firebase from 'firebase'
 
 const CREATE_ORDER = gql`
 mutation createOrder($in:OrderInput!) {
@@ -39,26 +39,73 @@ mutation createOrder($in:OrderInput!) {
     paymentMethod
   }
 }
-
 `;
-const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,route}) => {
+
+const GET_ALL_PRODUCTS = gql`
+{
+  products
+    {
+     menuId
+     price
+     description
+     name
+     id
+     vendorId
+     calories
+     photo
+  }
+}
+
+`
+
+
+
+const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,route,paymentMethod}) => {
     Stripe.setOptionsAsync({
       publishableKey: 'pk_test_51JdT8ABTMX0TxwgtXlHJAxwxmtoFJUpTiaVzzZrv4rr2nqYiDfQCU3U0gvboYh1y9afya3YWpDkEcdbSiqBHN83l00b5x14DHi', // Your key
       androidPayMode: 'test', // [optional] used to set wallet environment (AndroidPay)
     //  merchantId: 'your_merchant_id', // [optional] used for payments with ApplePay
     });
+    const currentUser = firebase.auth().currentUser;
     const [completePaymentWithStripe,{_data}] = useMutation(gql`
         mutation completePayment($amount:Int!,$currency:String!,$token:String! ){
            	completePaymentWithStripe(amount:$amount,currency:$currency,token:$token)
         }
     `)
 
-    // const totalPrice = route.params.totalPrice
+    const {data,loading,error} = useQuery(GET_ALL_PRODUCTS)
+    const items = route.params.items
+    const [products, setProducts] = useState([])
+    const [order, setOrder] = useState([])
+    const [vendorId, setVendorId] = useState('')
+    useEffect(() => {
+        if (data){
+        setProducts(data.products)
+        }       
+         items.forEach(item=>{
+    //    item.menuId 
+    // console.log(products)
+         products.forEach(product=>{
+            //  console.log(product.menuId)
+            if (product.menuId == item.menuId){
+                // console.log(product)
+                setOrder([{ product:product.id,count:item.qty},...order])
+                setVendorId(product.vendorId)
+            }
+         })
+         })
+        //   console.log(order)
+    }, [])
+  
+    
 
+
+
+    // const totalPrice = route.params.totalPrice
     const address = route.params.address
     const amount = route.params.totalPrice
-    const items = route.params.items
-    const [createOrder, { data, loading, error }] = useMutation(CREATE_ORDER);
+   
+    const [createOrder, { ___data }] = useMutation(CREATE_ORDER);
     const [tokenId,setTokenId] = React.useState('')
     const [params, setParams ] = React.useState({
         number: '4242424242424242',
@@ -121,7 +168,18 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
         completePaymentWithStripe({ variables: {amount:amount*100,currency: "usd", token:tokenId } })
         createOrder({
             variables:{
-                customerId:'',
+                customerId:currentUser.uid,
+                deliveryCharge:0,
+                discount:0,
+                items:order,
+                paymentMethod:paymentMethod,
+                status:'pending',
+                subTotal:amount,
+                totalCount:4,
+                totalPrice:amount,
+                transactionId:232,
+                vendorId:vendorId
+
             }
         })
         navigation.navigate("OrderSuccess")
@@ -246,7 +304,7 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
 
 function mapStateToProps(state){
     return {
-        selectedTab:state.tabReducer.selectedTab
+        paymentMethod:state.tabReducer.paymentMethod
     }
 }
 

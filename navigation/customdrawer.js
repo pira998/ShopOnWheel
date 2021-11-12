@@ -90,12 +90,12 @@ const CustomDrawerItem =({lable,icon,isFocused,onPress}) =>{
 }
 
 const CustomDrawerContent = ({navigation,selectedTab,setSelectedTab}) =>{
-    const {loading,error,data} = useQuery(GET_ALL_VENDORS,{
-        onCompleted:(data) =>{
-            // console.log(data)
+    // const {loading,error,data} = useQuery(GET_ALL_VENDORS,{
+    //     onCompleted:(data) =>{
+    //         // console.log(data)
          
-        }
-    })
+    //     }
+    // })
     
     const currentUser = firebase.auth().currentUser;
     return(

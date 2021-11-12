@@ -33,9 +33,9 @@ const SignUpSuccess = ({navigation,username,lastname,mapCoords,paymentMethod,lan
 
     const currentUser = firebase.auth().currentUser;
     const [updateProfile, { data, loading, error }] = useMutation(UPDATE_PROFILE);
-    console.log({
-        currentUser
-    })
+    // console.log({
+    //     currentUser
+    // })
     return (
        <Layout>
              <View 

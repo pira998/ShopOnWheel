@@ -46,8 +46,7 @@ export default {
     logo_01,
     logo_02,
     profile,
-
-        avatar_1,
+    avatar_1,
     avatar_2,
     avatar_3,
     avatar_4,

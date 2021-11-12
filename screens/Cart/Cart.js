@@ -358,7 +358,8 @@ const styles= StyleSheet.create({
         height:206,
         backgroundColor:COLORS.transparentPrimary,
         borderRadius:24,
-        padding:16
+        padding:16,
+        bottom:160
     }
     
 

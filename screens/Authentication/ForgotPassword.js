@@ -62,12 +62,12 @@ const ForgotPassword = ({navigation}) => {
         return values.email != "" && typeof errors.email == 'undefined'
     }
 
-    const {loading,error,data} = useQuery(GET_USERS,{
-        onCompleted:(data) =>{
-            console.log(data)
+    // const {loading,error,data} = useQuery(GET_USERS,{
+    //     onCompleted:(data) =>{
+    //         console.log(data)
          
-        }
-    })
+    //     }
+    // })
 
 
     return (
