@@ -34,10 +34,8 @@ import { gql, useQuery,useMutation } from '@apollo/client';
 import * as firebase from 'firebase'
 
 const CREATE_ORDER = gql`
-mutation createOrder($in:OrderInput!) {
-  createOrder(input:$in){
-    paymentMethod
-  }
+mutation createOrder($input:OrderInput!) {
+  createOrder(input:$input)
 }
 `;
 
@@ -165,32 +163,32 @@ const Checkout = ({drawerAnimationStyle,navigation,selectedTab,setSelectedTab,ro
             transactionId:23,
             vendorId:''
         }
-        createToken()
+       
         completePaymentWithStripe({ variables: {amount:amount*100,currency: "usd", token:tokenId } })
         createOrder({
             variables:{
-                customerId:currentUser.uid,
-                deliveryCharge:0,
-                discount:0,
-                items:order,
-                paymentMethod:paymentMethod,
-                status:'pending',
-                subTotal:amount,
-                totalCount:4,
-                totalPrice:amount,
-                transactionId:232,
-                vendorId:vendorId
+               input:{
+                "customerId":currentUser.uid,
+                "deliveryCharge":0,
+                "discount":0,
+                "items":order,
+                "paymentMethod":paymentMethod,
+                "status":'pending',
+                "subTotal":amount,
+                "totalCount":4,
+                "totalPrice":amount,
+                "transactionId":232,
+                "vendorId":vendorId
 
+               }
             }
         })
         navigation.navigate("OrderSuccess")
 
     } 
 
-    const createToken=()=>{
-        return Stripe.createTokenWithCardAsync(params).then(response=> setTokenId(response.tokenId) )
-    }
-        // console.log(tokenId)
+    Stripe.createTokenWithCardAsync(params).then(response=> setTokenId(response.tokenId) )  
+        console.log(tokenId)
 
 
 
