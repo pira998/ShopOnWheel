@@ -44,10 +44,13 @@ const SetLocation = ({userType,navigation,setMapCoords}) => {
         let location = await Location.getCurrentPositionAsync({});
         setLocation(location.coords);
         setMapRegion({latitude:location.coords.latitude,longitude:location.coords.longitude,latitudeDelta:location.coords.latitude/2,longitudeDelta: location.coords.longitude/2})
-        setMapCoords(mapRegion)
-        console.log(mapRegion)
         mapView.current.animateToRegion({latitude:location.coords.latitude,longitude:location.coords.longitude,latitudeDelta:0.015,longitudeDelta: 0.015},2000)
     }
+    useEffect(()=>{
+        setMapCoords(mapRegion)
+        console.log(mapRegion)
+
+    },[mapRegion])
 
 
     let text = 'Waiting..';

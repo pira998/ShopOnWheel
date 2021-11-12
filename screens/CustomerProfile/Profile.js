@@ -271,7 +271,7 @@ const Profile = ({drawerAnimationStyle,navigation,setUsername,setLastname,setMob
             
             />
                <FormInput 
-                label="Street"
+                label="House No"
                 keyboardType = "default"
                 autoCompleteType = "username"
                 onChangeText = {handleChange("houseNo")}

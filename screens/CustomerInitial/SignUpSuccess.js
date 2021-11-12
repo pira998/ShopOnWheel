@@ -86,7 +86,7 @@ const SignUpSuccess = ({navigation,username,lastname,mapCoords,paymentMethod,lan
                                 "cards": [],
                                 "location":{
                                     "Latitude": mapCoords.latitude,
-                                    "Longitude":mapCoords.longitude
+                                    "Longitude": mapCoords.longitude
                                 },
                                 "paymentMethod":paymentMethod,
                                 "id":currentUser.uid
